@@ -1,0 +1,11 @@
+{
+  "total_processed": 110,
+  "messages_failed": 0,
+  "rule_decisions": 105,
+  "ai_decisions": 4,
+  "average_confidence": 0.9707,
+  "processing_time": 5.8992,
+  "messages_per_second": 18.65,
+  "output_csv_valid": true,
+  "timestamp": "2026-08-02T00:38:17.105494"
+}

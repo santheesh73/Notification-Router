@@ -1,0 +1,11 @@
+{
+  "total_messages": 110,
+  "total_execution_time_seconds": 5.8992,
+  "messages_per_second": 18.65,
+  "average_latency_ms": 53.63,
+  "peak_memory_mb": 6.2445,
+  "average_confidence": 0.9707,
+  "rule_resolution_rate": 96.36,
+  "llm_resolution_rate": 3.64,
+  "timestamp": "2026-08-02T00:38:17.106511"
+}

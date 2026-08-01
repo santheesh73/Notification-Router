@@ -1,0 +1,111 @@
+message_id,action,message_type,reason,confidence,evidence_message_ids
+msg_023,notify,payment,Verified payment or transaction alert.,0.99,message_0243;message_0275;message_0263
+msg_091,mute,scam,Possible phishing attempt requesting OTP or login credentials.,0.99,message_0238;msg_110;message_0320
+msg_090,digest,event,Scheduled event or meeting notice routed to digest.,0.91,message_0339;message_0338;message_0340
+msg_048,mute,scam,Fraudulent payment demand with urgency pressure tactics.,0.99,message_0151;msg_109;message_0152
+msg_040,mute,forward,Forwarded chain message detected with high forward count.,0.96,message_0136;message_0135;message_0259
+msg_075,digest,event,Scheduled event or meeting notice routed to digest.,0.91,message_0206;message_0205;message_0294
+msg_005,digest,business_update,Society or apartment facility update requiring attention.,0.96,message_0065;message_0049;message_0096
+msg_104,digest,business_update,Society or apartment facility update requiring attention.,0.96,msg_103;msg_005;message_0050
+msg_069,mute,forward,Forwarded chain message detected with high forward count.,0.96,msg_061;message_0177;message_0193
+msg_107,mute,scam,Possible phishing attempt requesting OTP or login credentials.,0.99,message_0369;message_0213;message_0199
+msg_070,mute,scam,Possible phishing attempt requesting OTP or login credentials.,0.99,msg_079;msg_072;message_0213
+msg_003,mute,scam,Possible phishing attempt requesting OTP or login credentials.,0.99,message_0400;message_0031;message_0297
+msg_099,digest,event,Scheduled event or meeting notice routed to digest.,0.91,message_0227;msg_031;message_0249
+msg_008,digest,business_update,Business operational update routed to digest.,0.96,message_0296;message_0072;message_0071
+msg_092,notify,payment,Verified payment or transaction alert.,0.99,message_0346;message_0102;message_0344
+msg_060,digest,business_update,Group or organizational update from school channel.,0.96,message_0284;message_0176;message_0082
+msg_004,digest,business_update,Health or appointment update from service provider.,0.96,message_0246;message_0245;message_0005
+msg_030,digest,business_update,Society or apartment facility update requiring attention.,0.96,msg_029;message_0115;message_0335
+msg_045,digest,business_update,Society or apartment facility update requiring attention.,0.96,message_0146;message_0145;message_0070
+msg_052,digest,business_update,Order or delivery status update from business channel.,0.96,msg_076;message_0207;message_0208
+msg_009,digest,business_update,Group or organizational update from work channel.,0.96,message_0074;message_0073;message_0343
+msg_071,notify,personal,Family group message from close personal contact.,0.97,message_0197;message_0198;message_0165
+msg_016,mute,scam,Account suspension scam threatening access restriction.,0.99,message_0024;msg_073;message_0202
+msg_065,mute,scam,Detected fraudulent scam pattern with phishing indicators.,0.99,message_0260;message_0261;message_0333
+msg_038,notify,urgent,Emergency signal detected requiring immediate notification.,0.99,message_0131;message_0132;message_0079
+msg_086,mute,spam,Empty or negligible content message muted as spam.,0.98,message_0006;message_0144;message_0118
+msg_014,notify,personal,Direct personal message from trusted contact routed to notify.,0.96,message_0258;message_0018;message_0017
+msg_094,digest,business_update,Business operational update routed to digest.,0.96,message_0356;message_0203;message_0223
+msg_029,mute,spam,Repeated promotional broadcast message previously dismissed by users.,0.96,msg_030;message_0095;message_0113
+msg_105,mute,forward,Forwarded chain message detected with high forward count.,0.96,message_0373;message_0233;message_0122
+msg_002,digest,business_update,Group or organizational update from office channel.,0.96,message_0003;msg_057;message_0059
+msg_010,digest,greeting,Casual greeting or pleasantry routed to digest.,0.96,message_0011;message_0242;message_0311
+msg_078,notify,urgent,Emergency signal detected requiring immediate notification.,0.99,message_0211;message_0212;msg_020
+msg_013,notify,payment,Verified payment or transaction alert.,0.99,message_0081;message_0082;message_0019
+msg_018,mute,spam,Mass-forwarded broadcast with excessive distribution count.,0.96,message_0026;message_0091;message_0092
+msg_044,mute,scam,Possible phishing attempt requesting OTP or login credentials.,0.99,message_0143;message_0144;message_0036
+msg_032,digest,business_update,Group or organizational update from school channel.,0.96,message_0119;message_0285;message_0120
+msg_106,digest,business_update,Society or apartment facility update requiring attention.,0.96,message_0376;message_0234;message_0293
+msg_006,notify,payment,Verified payment or transaction alert.,0.99,message_0029;message_0044;message_0097
+msg_109,notify,payment,Verified payment or transaction alert.,0.99,message_0151;msg_048;message_0152
+msg_108,mute,scam,Suspicious shortened URL from untrusted domain detected.,0.99,message_0094;message_0093;message_0069
+msg_019,notify,payment,Verified payment or transaction alert.,0.99,message_0277;message_0275;message_0276
+msg_088,digest,business_update,Group or organizational update from work channel.,0.96,message_0025;message_0050;message_0335
+msg_056,notify,personal,Family group message from close personal contact.,0.97,msg_011;message_0013;message_0014
+msg_027,mute,scam,Detected fraudulent scam pattern with phishing indicators.,0.99,message_0272;message_0033;message_0007
+msg_050,digest,business_update,Health or appointment update from service provider.,0.96,message_0279;message_0278;message_0246
+msg_083,digest,business_update,Group or organizational update from office channel.,0.96,message_0219;message_0218;message_0003
+msg_063,mute,scam,Account suspension scam threatening access restriction.,0.99,message_0182;message_0181;msg_054
+msg_033,notify,urgent,Emergency signal detected requiring immediate notification.,0.99,message_0121;message_0122;message_0009
+msg_061,mute,forward,Forwarded chain message detected with high forward count.,0.96,message_0177;message_0042;message_0193
+msg_020,mute,scam,Suspicious shortened URL from untrusted domain detected.,0.99,message_0096;message_0114;msg_005
+msg_017,mute,scam,Fraudulent payment demand with urgency pressure tactics.,0.99,message_0025;message_0090;message_0089
+msg_058,mute,forward,Forwarded chain message detected with high forward count.,0.96,message_0039;message_0241;message_0040
+msg_026,notify,payment,Verified payment or transaction alert.,0.99,message_0032;message_0028;message_0107
+msg_047,digest,business_update,Society or apartment facility update requiring attention.,0.96,msg_022;message_0149;message_0151
+msg_046,mute,scam,Possible phishing attempt requesting OTP or login credentials.,0.99,message_0148;message_0147;message_0016
+msg_042,notify,business_update,Society or apartment facility update requiring attention.,0.96,message_0140;message_0139;message_0150
+msg_079,mute,scam,Possible phishing attempt requesting OTP or login credentials.,0.99,msg_070;msg_072;msg_015
+msg_098,mute,scam,Detected fraudulent scam pattern with phishing indicators.,0.99,msg_097;msg_056;message_0359
+msg_037,digest,business_update,Group or organizational update from apartment channel.,0.96,msg_080;message_0001;msg_006
+msg_007,digest,business_update,Group or organizational update from apartment channel.,0.96,message_0070;message_0069;message_0008
+msg_085,mute,spam,Empty or negligible content message muted as spam.,0.98,message_0213;message_0199;message_0196
+msg_001,digest,business_update,Society or apartment facility update requiring attention.,0.96,message_0057;message_0240;message_0058
+msg_021,mute,scam,Detected fraudulent scam pattern with phishing indicators.,0.99,msg_006;msg_067;message_0216
+msg_028,digest,event,Scheduled event or meeting notice routed to digest.,0.91,message_0034;message_0315;message_0314
+msg_012,mute,forward,Forwarded chain message detected with high forward count.,0.96,message_0079;message_0247;message_0080
+msg_064,digest,business_update,Group or organizational update from work channel.,0.96,message_0201;message_0087;message_0183
+msg_103,digest,business_update,Society or apartment facility update requiring attention.,0.96,msg_104;msg_005;message_0065
+msg_031,digest,business_update,Work deployment or technical update from team channel.,0.96,message_0117;message_0118;message_0249
+msg_057,digest,business_update,Group or organizational update from office channel.,0.96,message_0003;message_0059;message_0169
+msg_087,digest,business_update,Group or organizational update from work channel.,0.96,message_0223;message_0204;message_0358
+msg_067,notify,payment,Verified payment or transaction alert.,0.99,message_0098;message_0068;message_0029
+msg_039,notify,payment,Verified payment or transaction alert.,0.99,msg_077;message_0051;message_0403
+msg_082,digest,business_update,Group or organizational update from office channel.,0.96,message_0218;message_0397;message_0003
+msg_066,notify,payment,Verified payment or transaction alert.,0.99,message_0257;message_0402;msg_051
+msg_049,mute,scam,Possible phishing attempt requesting OTP or login credentials.,0.99,message_0154;message_0291;message_0153
+msg_015,mute,scam,Possible phishing attempt requesting OTP or login credentials.,0.99,message_0023;message_0045;msg_079
+msg_051,notify,payment,Verified payment or transaction alert.,0.99,message_0257;message_0402;msg_066
+msg_097,notify,urgent,Emergency signal detected requiring immediate notification.,0.99,message_0366;msg_098;msg_034
+msg_089,digest,greeting,Casual greeting or pleasantry routed to digest.,0.96,message_0301;message_0299;message_0396
+msg_053,mute,forward,Duplicate broadcast content forwarded across multiple groups.,0.96,message_0161;message_0253;message_0411
+msg_059,mute,scam,Financial fraud offering unauthorized loans or benefits.,0.99,message_0174;message_0023;message_0045
+msg_024,notify,payment,Verified payment or transaction alert.,0.99,message_0257;message_0402;msg_066
+msg_072,mute,scam,Possible phishing attempt requesting OTP or login credentials.,0.99,msg_070;msg_079;message_0023
+msg_036,mute,scam,Detected fraudulent scam pattern with phishing indicators.,0.99,message_0283;message_0127;message_0125
+msg_076,digest,business_update,Order or delivery status update from business channel.,0.96,msg_052;message_0207;message_0208
+msg_055,notify,urgent,Emergency signal detected requiring immediate notification.,0.99,message_0166;message_0165;message_0198
+msg_102,mute,scam,Detected fraudulent scam pattern with phishing indicators.,0.99,message_0371;message_0230;message_0059
+msg_080,digest,business_update,Society or apartment facility update requiring attention.,0.96,msg_037;message_0216;message_0130
+msg_093,mute,scam,Possible phishing attempt requesting OTP or login credentials.,0.99,message_0398;message_0349;message_0347
+msg_034,notify,urgent,Emergency signal detected requiring immediate notification.,0.99,message_0013;message_0167;message_0014
+msg_035,notify,payment,Verified payment or transaction alert.,0.99,message_0281;message_0273;message_0302
+msg_101,digest,event,Scheduled event or meeting notice routed to digest.,0.91,message_0370;message_0229;message_0268
+msg_041,digest,event,Scheduled event or meeting notice routed to digest.,0.91,message_0406;message_0329;message_0287
+msg_011,mute,forward,Forwarded chain message detected with high forward count.,0.96,message_0014;message_0123;message_0171
+msg_110,mute,scam,Possible phishing attempt requesting OTP or login credentials.,0.99,message_0238;msg_091;message_0320
+msg_095,notify,payment,Verified payment or transaction alert.,0.99,message_0201;message_0087;message_0183
+msg_074,mute,scam,Possible phishing attempt requesting OTP or login credentials.,0.99,message_0301;message_0203;message_0204
+msg_073,mute,spam,Mass-forwarded broadcast with excessive distribution count.,0.96,msg_016;msg_064;message_0201
+msg_054,mute,scam,Financial fraud offering unauthorized loans or benefits.,0.99,message_0163;message_0164;msg_063
+msg_068,digest,business_update,Group or organizational update from sports channel.,0.96,message_0191;message_0192;message_0010
+msg_100,notify,payment,Verified payment or transaction alert.,0.99,message_0362;message_0228;message_0117
+msg_062,mute,spam,Mass-forwarded broadcast with excessive distribution count.,0.96,message_0043;message_0029;message_0044
+msg_096,notify,personal,Personal or casual message from known contact.,0.86,message_0405;message_0353;message_0354
+msg_043,mute,spam,Mass-forwarded broadcast with excessive distribution count.,0.96,message_0129;message_0215;message_0179
+msg_077,digest,business_update,School or academic notification from group channel.,0.96,message_0051;message_0403;message_0037
+msg_081,digest,business_update,Group or organizational update from school channel.,0.96,message_0217;message_0331;message_0209
+msg_025,mute,scam,Possible phishing attempt requesting OTP or login credentials.,0.99,message_0239;message_0004;message_0400
+msg_084,mute,spam,Empty or negligible content message muted as spam.,0.98,message_0220;message_0223;message_0164
+msg_022,mute,scam,Detected fraudulent scam pattern with phishing indicators.,0.99,msg_047;message_0151;message_0099

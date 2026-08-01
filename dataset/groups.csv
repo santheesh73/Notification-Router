@@ -1,0 +1,24 @@
+group_id,group_name,group_type,member_count,admin_count,created_at,messages_30d
+group_001,Mehra Family,family,14,2,2023-02-11,92
+group_002,Green Acres Society Notices,society,184,4,2024-01-19,742
+group_003,International School Parents Group,school_group,96,3,2025-04-03,418
+group_004,Checkout Platform Co-workers,coworker,28,3,2025-06-12,512
+group_005,Myntra Marketplace,marketplace,241,1,2026-01-08,963
+group_006,Friday Friends Circle,friends,77,1,2024-09-17,224
+group_007,IIT Bombay Alumni Network,alumni,54,1,2025-01-24,139
+group_008,Extended Family,extended_family,24,1,2023-05-06,126
+group_009,Cousins and Family Chat,family,18,1,2023-08-14,88
+group_010,Maple Heights Residents,society,156,3,2024-03-22,621
+group_011,Society Maintenance Desk,society,118,2,2024-07-10,487
+group_012,University of Toronto Faculty Advising,college_faculty,72,2,2025-03-05,276
+group_013,AI Builders Tech Workshop,tech_community,18,2,2025-09-01,203
+group_014,Local Food Finds,local_food,193,1,2026-02-16,804
+group_015,Indiranagar Book Club,book_club,44,1,2024-11-09,132
+group_016,Nritya Dance Class,dance_class,61,1,2024-06-18,197
+group_017,Care Circle,caregiving,32,2,2024-08-21,164
+group_018,Match Night Crew,sports,83,1,2025-02-02,311
+group_019,Bills and Banking Help,finance_help,57,2,2025-05-18,228
+group_020,Neighborhood Safety Alerts,safety,121,3,2024-10-04,436
+group_021,Global Stock Watch,investment_tips,68,2,2025-07-08,389
+group_022,Land and Plot Leads,real_estate,91,2,2025-11-14,462
+group_023,University of Toronto Student Chat,college_students,142,2,2025-08-29,534

@@ -1,0 +1,111 @@
+business_id,display_name,brand_name,category,verified,official_domain,domain_used_by_sender,account_age_days,messages_sent_30d,user_reports_30d,domain_used_by_sender_age_days
+business_001,Amazon India,Amazon India,ecommerce_delivery,1,amazon.in,amazon.in,937,1243,3,729
+business_051,Bank of America,Bank of America,bank,1,bankofamerica.com,bankofamerica.com,2787,3393,8,2179
+business_011,Myntra,Myntra,fashion,1,myntra.com,myntra.com,1307,1673,4,1019
+business_061,Grab,Grab,ride_booking,1,grab.com,grab.com,3157,3823,9,2469
+business_021,Airtel,Airtel,telecom,1,airtel.in,airtel.in,1677,2103,5,1309
+business_071,UPS,UPS,logistics,1,ups.com,ups.com,3527,4253,10,2759
+business_031,Spotify,Spotify,streaming,1,spotify.com,spotify.com,2047,2533,6,1599
+business_081,AJIO,AJIO,fashion,1,ajio.com,ajio.com,3897,4683,2,3049
+business_041,PhonePe Cashback Desk,PhonePe,payments,0,phonepe.com,phonepe-rewards.in,28,787,62,7
+business_091,Hoop,Hoop,healthcare_product,1,hoophello.com,hoophello.com,4267,5113,3,3339
+business_101,Aetna Health,Aetna Health,insurance,1,aetna.com,aetna.com,4637,5543,4,3629
+business_002,HDFC Bank,HDFC Bank,bank,1,hdfc.bank.in,hdfc.bank.in,974,1286,4,758
+business_052,Barclays,Barclays,bank,1,barclays.co.uk,barclays.co.uk,2824,3436,9,2208
+business_012,Nykaa,Nykaa,beauty,1,nykaa.com,nykaa.com,1344,1716,5,1048
+business_062,Chase Security Center,Chase,bank,0,chase.com,chase-secure-alert.com,24,1144,55,10
+business_022,Jio,Jio,telecom,1,jio.com,jio.com,1714,2146,6,1338
+business_072,T-Mobile,T-Mobile,telecom,1,t-mobile.com,t-mobile.com,3564,4296,2,2788
+business_032,Green Cross Pharmacy,Green Cross Pharmacy,healthcare,0,,greencrosspharmacy.in,420,74,0,390
+business_082,Zerodha,Zerodha,fintech,1,zerodha.com,zerodha.com,3934,4726,3,3078
+business_042,Razorpay Invoice Desk,Razorpay,payments,0,razorpay.com,razorpay-billpay.in,29,804,65,8
+business_092,Thrillophilia,Thrillophilia,travel,1,thrillophilia.com,link.wame.pro,4304,5156,4,3368
+business_102,GEICO Auto,GEICO Auto,vehicle_insurance,1,geico.com,geico.com,4674,5586,5,3658
+business_003,Flipkart,Flipkart,ecommerce,1,flipkart.com,flipkart.com,1011,1329,5,787
+business_053,HSBC,HSBC,bank,1,hsbc.com,hsbc.com,2861,3479,10,2237
+business_013,Paytm,Paytm,payments,1,paytm.com,paytm.com,1381,1759,6,1077
+business_063,HSBC Secure Desk,HSBC,bank,0,hsbc.com,hsbc-alerts.net,25,1161,58,11
+business_023,Vi,Vi,telecom,1,myvi.in,myvi.in,1751,2189,7,1367
+business_073,Verizon,Verizon,telecom,1,verizon.com,verizon.com,3601,4339,3,2817
+business_033,HDFC Bank Helpdesk,HDFC Bank,bank,0,hdfc.bank.in,hdfcbank-kyc.in,20,651,38,17
+business_083,Groww,Groww,fintech,1,groww.in,groww.in,3971,4769,4,3107
+business_043,Airtel SIM Verification,Airtel,telecom,0,airtel.in,airtel-simkyc.in,30,821,68,9
+business_093,RazorpayX,RazorpayX,payments,1,razorpayx.com,razorpayx.com,4341,5199,5,3397
+business_103,GoMechanic,GoMechanic,vehicle_service,1,gomechanic.in,gomechanic.in,4711,5629,6,3687
+business_004,Apollo 24|7,Apollo 24|7,healthcare,1,apollo247.com,apollo247.com,1048,1372,6,816
+business_054,Santander,Santander,bank,1,santander.com,santander.com,2898,3522,2,2266
+business_014,PhonePe,PhonePe,payments,1,phonepe.com,phonepe.com,1418,1802,7,1106
+business_064,Talabat Refund Desk,Talabat,food_delivery,0,talabat.com,talabat-refund.com,26,1178,61,12
+business_024,Practo,Practo,healthcare,1,practo.com,practo.com,1788,2232,8,1396
+business_074,Wells Fargo,Wells Fargo,bank,1,wellsfargo.com,wellsfargo.com,3638,4382,4,2846
+business_034,SBI Reward Center,State Bank of India,bank,0,sbi.bank.in,sbireward.in,21,668,41,18
+business_084,noon,noon,ecommerce,1,noon.com,noon.com,4008,4812,5,3136
+business_044,Jio Recharge Rewards,Jio,telecom,0,jio.com,jioreward.in,31,838,71,10
+business_094,Swish,Swish,food_delivery,1,swish.in,swish.in,4378,5242,6,3426
+business_104,VehicleInfo,VehicleInfo,traffic_challan,1,vehicleinfo.app,vehicleinfo.app,4748,5672,7,3716
+business_005,MakeMyTrip,MakeMyTrip,travel,1,makemytrip.com,makemytrip.com,1085,1415,7,845
+business_055,DBS Bank,DBS Bank,bank,1,dbs.com.sg,dbs.com.sg,2935,3565,3,2295
+business_015,Razorpay,Razorpay,payments,1,razorpay.com,razorpay.com,1455,1845,8,1135
+business_065,du SIM Verification,du,telecom,0,du.ae,du-simverify.com,27,1195,64,13
+business_025,IndiGo,IndiGo,airline,1,goindigo.in,goindigo.in,1825,2275,9,1425
+business_075,Citi,Citi,bank,1,citi.com,citi.com,3675,4425,5,2875
+business_035,ICICI Security Team,ICICI Bank,bank,0,icicibank.com,icici-secure.net,22,685,44,19
+business_085,Careem,Careem,ride_booking,1,careem.com,careem.com,4045,4855,6,3165
+business_045,Zomato Gold Rewards,Zomato,food_delivery,0,zomato.com,zomato-gold.in,32,855,74,11
+business_095,Polaris School of Technology,Polaris School of Technology,education,1,polaris.school,weurl.co,4415,5285,7,3455
+business_105,Zillow,Zillow,real_estate,1,zillow.com,zillow.com,4785,5715,8,3745
+business_006,Tata Power,Tata Power,utilities,1,tatapower.com,tatapower.com,1122,1458,8,874
+business_056,Revolut,Revolut,fintech,1,revolut.com,revolut.com,2972,3608,4,2324
+business_016,CRED,CRED,credit_card,1,cred.club,cred.club,1492,1888,9,1164
+business_066,Walmart,Walmart,retail,1,walmart.com,walmart.com,3342,4038,5,2614
+business_026,IRCTC,IRCTC,travel,1,irctc.co.in,irctc.co.in,1862,2318,10,1454
+business_076,American Express,American Express,credit_card,1,americanexpress.com,americanexpress.com,3712,4468,6,2904
+business_036,Amazon Delivery Support,Amazon India,ecommerce_delivery,0,amazon.in,amazonpay-delivery.in,23,702,47,2
+business_086,Emirates,Emirates,airline,1,emirates.com,emirates.com,4082,4898,7,3194
+business_046,Swiggy One Support,Swiggy,food_delivery,0,swiggy.com,swiggy-refund.in,33,872,77,12
+business_096,PVRINOX Cinemas,PVRINOX Cinemas,cinema,1,pvrinox.com,pvrinox.com,4452,5328,8,3484
+business_106,AWS Security Hub,AWS,cloud_security,1,aws.amazon.com,aws.amazon.com,4822,5758,9,3774
+business_007,Zomato,Zomato,food_delivery,1,zomato.com,zomato.com,1159,1501,9,903
+business_057,Nubank,Nubank,fintech,1,nubank.com.br,nubank.com.br,3009,3651,5,2353
+business_017,ICICI Bank,ICICI Bank,bank,1,icicibank.com,icicibank.com,1529,1931,10,1193
+business_067,Target,Target,retail,1,target.com,target.com,3379,4081,6,2643
+business_027,BookMyShow,BookMyShow,events,1,bookmyshow.com,bookmyshow.com,1899,2361,2,1483
+business_077,PayPal,PayPal,payments,1,paypal.com,paypal.com,3749,4511,7,2933
+business_037,Blinkit Delivery Help,Blinkit,quick_commerce,0,blinkit.com,blinkit-helpdesk.in,24,719,50,3
+business_087,Tesco,Tesco,grocery,1,tesco.com,tesco.com,4119,4941,8,3223
+business_047,IRCTC Refund Desk,IRCTC,travel,0,irctc.co.in,irctc-refund.in,34,889,10,13
+business_097,RazorpayX Global Desk,RazorpayX,payments,0,razorpayx.com,razorpayx-payouts.com,34,1739,20,9
+business_107,ClassPass,ClassPass,fitness_wellness,1,classpass.com,classpass.com,4859,5801,10,3803
+business_008,Swiggy,Swiggy,food_delivery,1,swiggy.com,swiggy.com,1196,1544,10,932
+business_058,Talabat,Talabat,food_delivery,1,talabat.com,talabat.com,3046,3694,6,2382
+business_018,State Bank of India,State Bank of India,bank,1,sbi.bank.in,sbi.bank.in,1566,1974,2,1222
+business_068,DoorDash,DoorDash,food_delivery,1,doordash.com,doordash.com,3416,4124,7,2672
+business_028,Uber,Uber,rides,1,uber.com,uber.com,1936,2404,3,1512
+business_078,Zepto,Zepto,quick_commerce,1,zeptonow.com,zeptonow.com,3786,4554,8,2962
+business_038,Flipkart Refund Desk,Flipkart,ecommerce,0,flipkart.com,flipkart-refund.in,25,736,53,4
+business_088,Deliveroo,Deliveroo,food_delivery,1,deliveroo.com,deliveroo.com,4156,4984,9,3252
+business_048,MakeMyTrip Cancellation Desk,MakeMyTrip,travel,0,makemytrip.com,mmt-refund.in,35,906,13,14
+business_098,Loan Verification Desk,Unknown,finance,0,,vl.gl,35,1756,23,10
+business_108,OpenTable,OpenTable,restaurant_dining,1,opentable.com,opentable.com,4896,5844,2,3832
+business_009,Blinkit,Blinkit,quick_commerce,1,blinkit.com,blinkit.com,1233,1587,2,961
+business_059,du,du,telecom,1,du.ae,du.ae,3083,3737,7,2411
+business_019,Axis Bank,Axis Bank,bank,1,axisbank.com,axisbank.com,1603,2017,3,1251
+business_069,Instacart,Instacart,grocery_delivery,1,instacart.com,instacart.com,3453,4167,8,2701
+business_029,Ola,Ola,rides,1,olacabs.com,olacabs.com,1973,2447,4,1541
+business_079,Urban Company,Urban Company,home_services,1,urbancompany.com,urbancompany.com,3823,4597,9,2991
+business_039,Myntra Prize Desk,Myntra,fashion,0,myntra.com,myntragift.in,26,753,56,5
+business_089,Monzo,Monzo,fintech,1,monzo.com,monzo.com,4193,5027,10,3281
+business_049,LuckyDraw Alerts,Unknown,marketplace,0,,lucky-draw-result.in,36,923,16,15
+business_099,ISV Webinar Desk,Unknown,events,0,,shorturl.at,36,1773,26,11
+business_109,Marriott Bonvoy,Marriott Bonvoy,hotel,1,marriott.com,marriott.com,4933,5887,3,3861
+business_010,BigBasket,BigBasket,grocery,1,bigbasket.com,bigbasket.com,1270,1630,3,990
+business_060,Shopee,Shopee,ecommerce,1,shopee.sg,shopee.sg,3120,3780,8,2440
+business_020,Kotak Mahindra Bank,Kotak Mahindra Bank,bank,1,kotak.com,kotak.com,1640,2060,4,1280
+business_070,FedEx,FedEx,logistics,1,fedex.com,fedex.com,3490,4210,9,2730
+business_030,Netflix,Netflix,streaming,1,netflix.com,netflix.com,2010,2490,5,1570
+business_080,PharmEasy,PharmEasy,healthcare,1,pharmeasy.in,pharmeasy.in,3860,4640,10,3020
+business_040,Paytm KYC Desk,Paytm,payments,0,paytm.com,paytm-kyc.in,27,770,59,6
+business_090,Booking.com,Booking.com,travel,1,booking.com,booking.com,4230,5070,2,3310
+business_050,Chase,Chase,bank,1,chase.com,chase.com,2750,3350,7,2150
+business_100,Firewall Verification Desk,Unknown,security,0,,,12,1790,29,12
+business_110,Rakuten,Rakuten,cashback_rewards,1,rakuten.com,rakuten.com,4970,5930,4,3890

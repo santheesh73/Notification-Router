@@ -1,0 +1,31 @@
+{
+  "coverage": "100.0%",
+  "failures": 0,
+  "warnings": 0,
+  "action_distribution": {
+    "notify": 26,
+    "mute": 45,
+    "digest": 39
+  },
+  "message_type_distribution": {
+    "payment": 15,
+    "scam": 29,
+    "event": 6,
+    "forward": 8,
+    "business_update": 32,
+    "personal": 4,
+    "urgent": 6,
+    "spam": 8,
+    "greeting": 2
+  },
+  "decision_source_distribution": {
+    "RULE_ENGINE": 106,
+    "LLM": 4
+  },
+  "confidence_stats": {
+    "average": 0.9707,
+    "min": 0.86,
+    "max": 0.99
+  },
+  "timestamp": "2026-08-02T00:38:17.107413"
+}

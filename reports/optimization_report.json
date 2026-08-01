@@ -1,0 +1,56 @@
+{
+  "rule_optimization": {
+    "total_rules_evaluated": 15,
+    "active_rules": [
+      "PaymentRule",
+      "ScamRule",
+      "EventRule",
+      "DuplicateRule",
+      "OfficeRule",
+      "BusinessRule",
+      "FamilyRule",
+      "UrgentRule",
+      "PersonalRule",
+      "GreetingRule"
+    ],
+    "rule_trigger_counts": {
+      "PaymentRule": 15,
+      "ScamRule": 29,
+      "EventRule": 6,
+      "DuplicateRule": 13,
+      "OfficeRule": 26,
+      "BusinessRule": 6,
+      "FamilyRule": 2,
+      "UrgentRule": 6,
+      "PersonalRule": 1,
+      "GreetingRule": 2
+    },
+    "recommendations": [
+      "Keep ScamRule at Priority.CRITICAL (Priority 1) to guarantee zero false negatives.",
+      "Maintain PaymentRule Priority.HIGH (Priority 2) for verified business transactions.",
+      "Maintain 15-rule registry ordering: CRITICAL -> HIGH -> MEDIUM -> LOW."
+    ]
+  },
+  "tuned_thresholds": {
+    "scam_threshold": 0.95,
+    "urgent_threshold": 0.88,
+    "payment_threshold": 0.9,
+    "spam_threshold": 0.92,
+    "muted_group_threshold": 0.99,
+    "promotion_threshold": 0.75,
+    "greeting_threshold": 0.7,
+    "general_threshold": 0.7
+  },
+  "retrieval_strategy_weights": {
+    "sender_weight": 0.35,
+    "business_weight": 0.25,
+    "group_weight": 0.15,
+    "keyword_weight": 0.15,
+    "recency_decay_weight": 0.1
+  },
+  "prompt_optimization": {
+    "status": "optimized",
+    "context_compression": "active"
+  },
+  "timestamp": "2026-08-02T00:38:17.111748"
+}
