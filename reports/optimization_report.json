@@ -16,12 +16,12 @@
     "rule_trigger_counts": {
       "PaymentRule": 15,
       "ScamRule": 29,
-      "EventRule": 6,
-      "DuplicateRule": 13,
+      "EventRule": 7,
+      "DuplicateRule": 14,
       "OfficeRule": 26,
       "BusinessRule": 6,
-      "FamilyRule": 2,
-      "UrgentRule": 6,
+      "FamilyRule": 3,
+      "UrgentRule": 3,
       "PersonalRule": 1,
       "GreetingRule": 2
     },
@@ -52,5 +52,5 @@
     "status": "optimized",
     "context_compression": "active"
   },
-  "timestamp": "2026-08-02T00:38:17.111748"
+  "timestamp": "2026-08-02T01:39:56.085693"
 }

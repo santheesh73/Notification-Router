@@ -39,7 +39,7 @@ def test_critical_rule_preserved() -> None:
 
     assert act == "mute"
     assert m_type == "scam"
-    assert d_src == "RULE_ENGINE"
+    assert d_src.startswith("RuleEngine")
     assert ai_res is False
 
 
@@ -73,5 +73,5 @@ def test_media_emergency_override() -> None:
 
     assert act == "notify"
     assert m_type == "urgent"
-    assert d_src == "FUSED"
+    assert d_src in ("MultimodalManager", "FUSED")
     assert ai_res is True

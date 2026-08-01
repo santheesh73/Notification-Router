@@ -3,29 +3,38 @@
   "failures": 0,
   "warnings": 0,
   "action_distribution": {
-    "notify": 26,
-    "mute": 45,
-    "digest": 39
+    "notify": 24,
+    "mute": 46,
+    "digest": 40
   },
   "message_type_distribution": {
     "payment": 15,
     "scam": 29,
-    "event": 6,
-    "forward": 8,
+    "event": 7,
+    "forward": 9,
     "business_update": 32,
-    "personal": 4,
-    "urgent": 6,
+    "personal": 5,
+    "urgent": 3,
     "spam": 8,
     "greeting": 2
   },
   "decision_source_distribution": {
-    "RULE_ENGINE": 106,
-    "LLM": 4
+    "RuleEngine:PaymentRule": 15,
+    "RuleEngine:ScamRule": 29,
+    "RuleEngine:EventRule": 7,
+    "RuleEngine:DuplicateRule": 14,
+    "RuleEngine:OfficeRule": 26,
+    "RuleEngine:BusinessRule": 6,
+    "RuleEngine:FamilyRule": 3,
+    "RuleEngine:UrgentRule": 3,
+    "LLM:TextClassifier": 4,
+    "RuleEngine:PersonalRule": 1,
+    "RuleEngine:GreetingRule": 2
   },
   "confidence_stats": {
-    "average": 0.9707,
-    "min": 0.86,
-    "max": 0.99
+    "average": 0.7955,
+    "min": 0.5501,
+    "max": 0.985
   },
-  "timestamp": "2026-08-02T00:38:17.107413"
+  "timestamp": "2026-08-02T01:39:56.081999"
 }

@@ -53,5 +53,5 @@ DECISION INSTRUCTIONS:
 Return valid JSON with keys "action", "message_type", "reason", "confidence".
 Allowed actions: ["notify", "digest", "mute"]
 Allowed message_types: ["personal", "urgent", "event", "payment", "business_update", "promotion", "greeting", "forward", "spam", "scam", "unknown"]
-Reason must be concise (under 25 words).
+Reason must be concise (under 25 words). Do not use generic phrases; reference the actual sender, group, or content detail that drove the decision.
 """

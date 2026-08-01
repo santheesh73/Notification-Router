@@ -21,7 +21,7 @@ def test_fusion_engine_single_message() -> None:
     msg = {"message_id": "MSG_FUSE", "sender_id": "USR_101", "text_content": "Coffee meeting today"}
     vec = feature_pipe.process(msg)
 
-    rule_res = RuleResult("MSG_FUSE", True, "digest", "event", "Scheduled meeting", 0.85, "EventRule", "3", False)
+    rule_res = RuleResult("MSG_FUSE", True, "digest", "event", "Scheduled meeting", 0.85, "EventRule", "MEDIUM", False)
     llm_res = DecisionResult("MSG_FUSE", "digest", "event", "Scheduled meeting", 0.85)
 
     engine = DecisionFusionEngine()
@@ -37,7 +37,7 @@ def test_fusion_engine_single_message() -> None:
     assert isinstance(final_dec, FinalDecision)
     assert final_dec.message_id == "MSG_FUSE"
     assert final_dec.action == "digest"
-    assert final_dec.decision_source == "RULE_ENGINE"
+    assert "RuleEngine" in final_dec.decision_source or final_dec.decision_source == "RULE_ENGINE"
     assert 0.0 <= final_dec.confidence <= 1.0
 
 

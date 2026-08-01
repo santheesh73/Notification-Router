@@ -13,7 +13,7 @@ REQUIRED_FILES: list[Path] = [
     PROJECT_ROOT / "README.md",
     PROJECT_ROOT / "requirements.txt",
     PROJECT_ROOT / "main.py",
-    PROJECT_ROOT / "chat_transcript.md",
+    Path.home() / "hackerrank_orchestrate_august26" / "log.txt",
     PROJECT_ROOT / "reports" / "execution_report.json",
     PROJECT_ROOT / "reports" / "benchmark_report.json",
     PROJECT_ROOT / "reports" / "quality_report.json",

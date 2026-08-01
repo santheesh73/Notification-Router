@@ -102,9 +102,10 @@ class ExecutionPipeline:
 
         # Restore progress tracker stats from loaded decisions
         for d in decisions:
+            is_rule = "RuleEngine" in d.decision_source or d.decision_source == "RULE_ENGINE" or d.decision_source.startswith("Rule")
             tracker.update(
                 d.message_id,
-                resolved_by_rule=(d.decision_source == "RULE_ENGINE"),
+                resolved_by_rule=is_rule,
                 resolved_by_ai=d.resolved_by_ai,
                 failed=(d.decision_source == "FALLBACK"),
             )
@@ -125,7 +126,7 @@ class ExecutionPipeline:
             processed_set.add(msg_id)
 
             # Update Tracker
-            resolved_rule = final_dec.decision_source == "RULE_ENGINE"
+            resolved_rule = "RuleEngine" in final_dec.decision_source or final_dec.decision_source == "RULE_ENGINE" or final_dec.decision_source.startswith("Rule")
             resolved_ai = final_dec.resolved_by_ai
             is_failed = final_dec.decision_source == "FALLBACK"
 

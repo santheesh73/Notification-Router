@@ -45,7 +45,7 @@ class RetrievalEngine:
     ) -> RetrievalResult:
         """Retrieve Top-3 historical evidence messages supporting the routing decision.
 
-        Searches message_history using sender, business, group, keyword overlap, media type, and text similarity.
+        Searches message_history strictly, ensuring candidates are members of message_history.csv.
 
         Args:
             vector: Extracted FeatureVector instance.
@@ -59,6 +59,10 @@ class RetrievalEngine:
         cached_res = self.cache.get(vector.message_id)
         if cached_res:
             return cached_res
+
+        # Fetch valid message_history ID space for hard filtering
+        mhist_df = context.repository.get_dataframe("message_history")
+        valid_history_ids = set(mhist_df["message_id"].astype(str)) if not mhist_df.empty and "message_id" in mhist_df.columns else set()
 
         all_hist = list(context.history_builder._cache.values())
         if not all_hist:
@@ -81,26 +85,35 @@ class RetrievalEngine:
         target_text = getattr(vector, "message_text", "") or ""
         target_tokens = self._extract_tokens(target_text)
 
-        candidates_scores: list[tuple[str, float]] = []
+        candidates_scores: list[tuple[str, float, str]] = []
 
         for hp in all_hist:
+            # SECTION 1 HARD FILTER: Candidate MUST belong to message_history.csv and NOT messages.csv (msg_ prefix)
+            if hp.message_id.startswith("msg_") or (valid_history_ids and hp.message_id not in valid_history_ids):
+                continue
+
             # Exclude current message itself
             if hp.message_id == vector.message_id:
                 continue
 
             score = 0.0
+            primary_signal = "KeywordMatch"
 
-            # 1. Sender match
-            if target_sender and target_sender != "unknown" and (hp.sender == target_sender or hp.user_id == target_sender):
-                score += 0.45
-
-            # 2. Business match
+            # 1. Business match
             if target_biz and (hp.business_id == target_biz or hp.sender == target_biz):
                 score += 0.45
+                primary_signal = "BusinessMatch"
+
+            # 2. Sender match
+            if target_sender and target_sender != "unknown" and (hp.sender == target_sender or hp.user_id == target_sender):
+                score += 0.45
+                primary_signal = "SenderMatch" if not target_biz else "BusinessSenderMatch"
 
             # 3. Group match
             if target_grp and hp.group_id == target_grp:
                 score += 0.40
+                if primary_signal == "KeywordMatch":
+                    primary_signal = "GroupMatch"
 
             # 4. Same recipient user
             if target_user and hp.user_id == target_user:
@@ -119,27 +132,30 @@ class RetrievalEngine:
                         union = target_tokens.union(cand_tokens)
                         jaccard = len(inter) / max(1, len(union))
                         score += jaccard * 0.60
+                        if jaccard > 0.30 and primary_signal == "KeywordMatch":
+                            primary_signal = "TextSimilarityMatch"
 
             # Collect candidate if score crosses relevance threshold
-            if score >= 0.10:
-                candidates_scores.append((hp.message_id, round(score, 4)))
+            if score >= 0.15:
+                candidates_scores.append((hp.message_id, round(min(1.0, score), 4), primary_signal))
 
         # Sort candidates descending by score
         candidates_scores.sort(key=lambda item: item[1], reverse=True)
 
-        top_evidence_ids = [cid for cid, _ in candidates_scores[:top_k]]
+        top_evidence_ids = [cid for cid, _, _ in candidates_scores[:top_k]]
         best_score = candidates_scores[0][1] if candidates_scores else 0.0
+        best_strategy = candidates_scores[0][2] if candidates_scores else "none"
 
         retrieved_flag = len(top_evidence_ids) > 0 and best_score > 0.0
 
         res = RetrievalResult(
             message_id=vector.message_id,
             retrieved=retrieved_flag,
-            evidence_message_ids=top_evidence_ids,
-            retrieval_score=best_score,
-            matched_strategy="MultiSignalHistorySearch" if retrieved_flag else "none",
+            evidence_message_ids=top_evidence_ids if retrieved_flag else [],
+            retrieval_score=round(min(1.0, best_score), 4),
+            matched_strategy=best_strategy if retrieved_flag else "none",
         )
 
         self.cache.set(vector.message_id, res)
-        logger.debug(f"Retrieved {len(top_evidence_ids)} evidence items for '{vector.message_id}' (Score={best_score:.4f}).")
+        logger.debug(f"Retrieved {len(top_evidence_ids)} evidence items for '{vector.message_id}' via {best_strategy} (Score={best_score:.4f}).")
         return res

@@ -79,11 +79,23 @@ class FeaturePipeline:
         # Basic metadata extraction
         msg_id = str(msg_dict.get("message_id", "MSG_UNKNOWN"))
         user_id = str(msg_dict.get("recipient_id", msg_dict.get("user_id", "USR_UNKNOWN")))
-        sender_id = str(msg_dict.get("sender_id", "USR_UNKNOWN"))
-        group_id = str(msg_dict.get("group_id", "")) if str(msg_dict.get("group_id", "")) != "nan" and str(msg_dict.get("group_id", "")) != "" else None
-        business_id = sender_id if sender_id.startswith("BUS") else None
-        timestamp = str(msg_dict.get("timestamp", "")) or None
-        media_type = str(msg_dict.get("message_type", "text")).lower()
+
+        raw_sender = msg_dict.get("sender_user_id") or msg_dict.get("sender_id") or msg_dict.get("business_id")
+        sender_id = str(raw_sender).strip() if raw_sender and str(raw_sender) not in ("nan", "None", "") else ""
+
+        raw_grp = msg_dict.get("group_id")
+        group_id = str(raw_grp).strip() if raw_grp and str(raw_grp) not in ("nan", "None", "") else None
+
+        raw_biz = msg_dict.get("business_id")
+        if raw_biz and str(raw_biz) not in ("nan", "None", ""):
+            business_id = str(raw_biz).strip()
+        elif sender_id.startswith("BUS") or sender_id.startswith("business"):
+            business_id = sender_id
+        else:
+            business_id = None
+
+        timestamp = str(msg_dict.get("timestamp", msg_dict.get("created_at", ""))) or None
+        media_type = str(msg_dict.get("media_type", msg_dict.get("message_type", "text"))).lower()
         forwarded_count = int(msg_dict.get("forwarded_count", 1 if msg_dict.get("is_forwarded") else 0))
 
         # Extract raw message text for text-based classification

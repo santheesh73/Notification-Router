@@ -66,7 +66,15 @@ class TextFeatureExtractor(BaseFeatureExtractor):
         contains_discount = any(k in text_lower for k in ["discount", "off", "sale", "save"])
         contains_coupon = any(k in text_lower for k in ["coupon", "promo", "voucher", "code"])
         contains_offer = any(k in text_lower for k in ["offer", "deal", "cashback", "bonus"])
-        contains_deadline = any(k in text_lower for k in ["deadline", "due date", "expires", "urgent", "by today", "asap"])
+        has_negation = any(p in text_lower for p in ["nothing urgent", "not urgent", "no rush", "isn't urgent", "is not urgent", "no need to call", "don't call now", "can wait", "later is fine"])
+
+        deadline_kws = ["deadline", "due date", "expires", "by today", "asap"]
+        emergency_kws = ["emergency", "hospital", "sos", "accident", "help immediately"]
+        if not has_negation:
+            deadline_kws.append("urgent")
+            emergency_kws.append("urgent")
+
+        contains_deadline = any(k in text_lower for k in deadline_kws)
         contains_date = bool(re.search(date_pattern, text, re.IGNORECASE))
         contains_time = bool(re.search(time_pattern, text, re.IGNORECASE))
         contains_meeting = any(k in text_lower for k in ["meeting", "zoom", "teams", "google meet", "call", "sync", "standup"])
@@ -79,7 +87,7 @@ class TextFeatureExtractor(BaseFeatureExtractor):
         contains_upi = any(k in text_lower for k in ["upi", "@okicici", "@okaxis", "@ybl", "@paytm", "vpa"])
         contains_qr = any(k in text_lower for k in ["qr code", "qr", "scan"])
         contains_password = any(k in text_lower for k in ["password", "pin", "credentials", "login"])
-        contains_emergency = any(k in text_lower for k in ["emergency", "urgent", "hospital", "sos", "accident", "help immediately"])
+        contains_emergency = any(k in text_lower for k in emergency_kws)
         contains_help = any(k in text_lower for k in ["help", "assist", "support", "issue"])
         contains_thank_you = any(k in text_lower for k in ["thank you", "thanks", "thx", "appreciate"])
         contains_greeting = any(k in text_lower for k in ["hi", "hello", "hey", "good morning", "good evening"])

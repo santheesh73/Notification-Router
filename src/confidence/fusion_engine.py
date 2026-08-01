@@ -101,6 +101,7 @@ class DecisionFusionEngine:
             media_result=media_result,
             vector=vector,
             action=act,
+            message_type=m_type,
         )
 
         # 3. Sanitize Reason and Evidence IDs

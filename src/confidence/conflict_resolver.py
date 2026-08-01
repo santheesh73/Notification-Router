@@ -1,15 +1,32 @@
-"""Conflict Resolver for multi-source routing signals."""
+"""Conflict Resolver for Decision Fusion Engine."""
 
-from src.confidence.validation import TYPE_NORMALIZATION_MAP, VALID_MESSAGE_TYPES
+from typing import Any
+
 from src.features.feature_vector import FeatureVector
 from src.llm.decision_result import DecisionResult
 from src.media.media_result import MediaResult
 from src.rules.rule_result import RuleResult
-from src.utils.logger import logger
+
+VALID_ACTIONS: set[str] = {"notify", "digest", "mute"}
+
+VALID_MESSAGE_TYPES: set[str] = {
+    "personal", "urgent", "event", "payment", "business_update",
+    "promotion", "greeting", "forward", "spam", "scam", "unknown"
+}
+
+TYPE_NORMALIZATION_MAP: dict[str, str] = {
+    "business": "business_update",
+    "office": "business_update",
+    "family": "personal",
+    "duplicate": "spam",
+    "reminder": "event",
+    "transaction": "payment",
+    "phishing": "scam",
+}
 
 
 class ConflictResolver:
-    """Deterministic Conflict Resolver enforcing decision priority hierarchy."""
+    """Resolves potential action and category conflicts between Rule Engine and LLM output."""
 
     def resolve(
         self,
@@ -18,97 +35,57 @@ class ConflictResolver:
         media_result: MediaResult | None,
         vector: FeatureVector,
     ) -> tuple[str, str, str, str, bool]:
-        """Resolve conflicts between Rule Engine, LLM, Media, and Features.
+        """Resolve final action, message_type, reason, decision_source, and ai_resolved flag.
 
-        Args:
-            rule_result: RuleResult from Phase 4.
-            llm_result: DecisionResult from Phase 7.
-            media_result: MediaResult from Phase 6 or None.
-            vector: FeatureVector from Phase 3.
+        Hierarchy:
+            1. Multimodal Emergency Hazard Override (OCR / Speech critical alert)
+            2. Resolved Rule Engine Decision Precedence (Scam, Payment, Muted Group, Office, Personal, Urgent, etc.)
+            3. LLM Router Decision (for unresolved messages)
+            4. Deterministic Feature Vector Fallback
 
         Returns:
-            Tuple of (action, message_type, reason, decision_source, resolved_by_ai).
+            Tuple of (action, message_type, reason, decision_source, ai_resolved).
         """
-        # 1. Critical Safety & Emergency Override (Critical Rules: Priority 1)
-        if rule_result.resolved and rule_result.priority == "RulePriority.CRITICAL":
-            logger.debug(f"ConflictResolver: Preserving CRITICAL rule '{rule_result.triggered_rule}'.")
-            return (
-                rule_result.action,
-                self._normalize_type(rule_result.message_type),
-                rule_result.reason,
-                "RULE_ENGINE",
-                False,
-            )
+        # 1. Multimodal Hazard Override
+        if media_result and getattr(media_result, "processed", False):
+            is_urg = getattr(media_result, "is_urgent", False)
+            urg_lvl = str(getattr(media_result, "urgency", getattr(media_result, "urgency_level", "NORMAL"))).upper()
+            if is_urg or "CRITICAL" in urg_lvl or "HIGH" in urg_lvl:
+                action = "notify"
+                msg_type = "urgent"
+                reason = "Multimodal hazard or emergency alert detected in attachment (OCR/Transcript)."
+                return action, msg_type, reason, "MultimodalManager", True
 
-        # 2. Multimodal Emergency / Scam Safety Override
-        if media_result and media_result.processed:
-            if media_result.classification in ["Emergency", "Exams", "Meeting"] and media_result.urgency in ["high", "critical"]:
-                logger.info(f"ConflictResolver: Overriding with Media Emergency signal '{media_result.classification}'.")
-                return (
-                    "notify",
-                    "urgent" if media_result.classification == "Emergency" else "event",
-                    f"Multimodal {media_result.classification.lower()} alert detected in media attachment.",
-                    "FUSED",
-                    True,
-                )
-            elif media_result.classification == "Scam" or media_result.risk == "high":
-                logger.info("ConflictResolver: Overriding with Media Scam risk signal.")
-                return (
-                    "mute",
-                    "scam",
-                    "High risk scam signal detected in media attachment.",
-                    "FUSED",
-                    True,
-                )
-
-        # 3. Rule Engine Match for Deterministically Resolved Messages
-        if rule_result.resolved and not rule_result.requires_ai:
+        # 2. Rule Engine Resolved Decision Precedence
+        if rule_result and rule_result.resolved and rule_result.action not in ("unresolved", "unknown", ""):
+            action = self._sanitize_action(rule_result.action)
             msg_type = self._normalize_type(rule_result.message_type)
-            return (
-                rule_result.action,
-                msg_type,
-                rule_result.reason,
-                "RULE_ENGINE",
-                False,
-            )
+            reason = self._build_contextual_reason(vector, msg_type, action)
+            rule_name = getattr(rule_result, "triggered_rule", getattr(rule_result, "rule_triggered", "Rule"))
+            return action, msg_type, reason, f"RuleEngine:{rule_name}", False
 
-        # 4. LLM / AI Decision for AI-routed ambiguous messages
-        if llm_result and llm_result.provider not in ("RuleEngine", "None", "Mock"):
+        # 3. LLM Router Decision for Unresolved Messages
+        if llm_result and llm_result.provider not in ("RuleEngine", "Rule Engine Fallback") and llm_result.confidence > 0.50:
+            action = self._sanitize_action(llm_result.action)
             msg_type = self._normalize_type(llm_result.message_type)
-            reason = llm_result.reason
+            reason = llm_result.reason or self._build_contextual_reason(vector, msg_type, action)
+            return action, msg_type, reason, f"LLM:{llm_result.provider}", True
 
-            # Sanitize reason — never reference Gemini or quota exhaustion
-            if not reason or "gemini" in reason.lower() or "quota" in reason.lower():
-                reason = self._build_contextual_reason(vector, msg_type, llm_result.action)
+        # 4. Deterministic Feature Vector Fallback
+        inferred_type = self._infer_type_from_vector(vector)
+        action = "digest" if inferred_type in ("business_update", "event", "promotion") else ("notify" if inferred_type in ("personal", "urgent", "payment") else "mute")
+        reason = self._build_contextual_reason(vector, inferred_type, action)
+        return action, inferred_type, reason, "DeterministicFallback", False
 
-            return (
-                llm_result.action,
-                msg_type,
-                reason,
-                "LLM",
-                True,
-            )
-
-        # 5. Fallback Decision — with inferred type (never "unknown" if possible)
-        fallback_type = self._infer_type_from_vector(vector)
-        fallback_reason = self._build_contextual_reason(vector, fallback_type, "digest")
-        return (
-            "digest",
-            fallback_type,
-            fallback_reason,
-            "FALLBACK",
-            False,
-        )
+    def _sanitize_action(self, action: str) -> str:
+        """Sanitize action string to valid set."""
+        act = str(action).lower().strip()
+        if act in VALID_ACTIONS:
+            return act
+        return "digest"
 
     def _normalize_type(self, message_type: str) -> str:
-        """Normalize message_type to competition-allowed values.
-
-        Args:
-            message_type: Raw message type string.
-
-        Returns:
-            Normalized message type string.
-        """
+        """Normalize message_type to competition specification."""
         if not message_type or message_type in ("", "unknown"):
             return "unknown"
         if message_type in VALID_MESSAGE_TYPES:
@@ -116,86 +93,70 @@ class ConflictResolver:
         return TYPE_NORMALIZATION_MAP.get(message_type, "unknown")
 
     def _build_contextual_reason(self, vector: FeatureVector, msg_type: str, action: str) -> str:
-        """Generate contextual reason based on vector features and message type.
+        """Generate entity-grounded contextual reason using real sender_user_id, business_id, or group_id."""
+        sender = str(getattr(vector, "sender_id", "") or "").strip()
+        grp = str(getattr(vector, "group_id", "") or "").strip()
+        biz = str(getattr(vector, "business_id", "") or "").strip()
 
-        Args:
-            vector: FeatureVector instance.
-            msg_type: Resolved message type.
-            action: Resolved action.
+        if sender in ("USR_UNKNOWN", "nan", "None"):
+            sender = ""
+        if grp in ("nan", "None"):
+            grp = ""
+        if biz in ("nan", "None"):
+            biz = ""
 
-        Returns:
-            Contextual reason string.
-        """
-        parts = []
-
-        # Type-specific context
-        if msg_type == "scam":
-            parts.append("Suspicious content with fraud indicators")
-        elif msg_type == "payment":
-            if vector.trusted_business or vector.verified:
-                parts.append("Trusted payment notification from verified provider")
-            else:
-                parts.append("Payment or financial transaction notification")
-        elif msg_type == "business_update":
-            if vector.verified:
-                parts.append("Verified business update")
-            else:
-                parts.append("Business or organizational notification")
-        elif msg_type == "personal":
-            if vector.trusted_sender or vector.favorite_contact:
-                parts.append("Message from trusted personal contact")
-            else:
-                parts.append("Personal message")
-        elif msg_type == "urgent":
-            parts.append("Time-sensitive message requiring immediate attention")
-        elif msg_type == "event":
-            parts.append("Event or scheduling notification")
-        elif msg_type == "promotion":
-            parts.append("Marketing or promotional content")
-        elif msg_type == "greeting":
-            parts.append("Social greeting or pleasantry")
-        elif msg_type == "forward":
-            parts.append("Forwarded content from external source")
-        elif msg_type == "spam":
-            parts.append("Unsolicited or repetitive broadcast content")
+        # Construct natural entity clause without stuffing message_id or placeholder strings
+        if biz:
+            entity_clause = f"from business {biz}"
+        elif grp and sender:
+            entity_clause = f"from sender {sender} in group {grp}"
+        elif sender:
+            entity_clause = f"from sender {sender}"
+        elif grp:
+            entity_clause = f"in group {grp}"
         else:
-            parts.append("Message classified by content analysis")
+            entity_clause = ""
 
-        # Add sender/history context
-        if vector.trusted_sender:
-            parts.append("from trusted sender")
-        if vector.new_sender:
-            parts.append("from new or unknown sender")
-        if vector.interaction_frequency > 0.5:
-            parts.append("with high interaction history")
+        clause_space = f" {entity_clause}" if entity_clause else ""
 
-        return ". ".join(parts) + "."
+        if msg_type == "scam":
+            return f"Phishing risk or security threat detected{clause_space}."
+        elif msg_type == "payment":
+            trust_flag = " (verified provider)" if (vector.verified or vector.trusted_business) else ""
+            return f"Financial transaction or payment alert{clause_space}{trust_flag}."
+        elif msg_type == "business_update":
+            return f"Operational notification{clause_space} routed to {action}."
+        elif msg_type == "personal":
+            return f"Direct personal communication{clause_space} routed to {action}."
+        elif msg_type == "urgent":
+            return f"Time-sensitive alert{clause_space} requiring immediate user attention."
+        elif msg_type == "event":
+            return f"Event schedule update{clause_space} routed to {action}."
+        elif msg_type == "forward":
+            fwd_cnt = getattr(vector, "forwarded_count", 1)
+            return f"Broadcast message ({fwd_cnt}x forwards){clause_space} routed to {action}."
+        elif msg_type == "spam":
+            return f"Unsolicited broadcast content{clause_space} muted."
+        elif msg_type == "promotion":
+            return f"Marketing update{clause_space} routed to summary {action}."
+        elif msg_type == "greeting":
+            return f"Social greeting{clause_space} routed to {action}."
+        else:
+            return f"Contextual message{clause_space} routed to {action} based on multi-signal analysis."
 
     def _infer_type_from_vector(self, vector: FeatureVector) -> str:
-        """Infer best message type from feature vector when classification is missing.
-
-        Args:
-            vector: FeatureVector instance.
-
-        Returns:
-            Inferred message type string.
-        """
-        if vector.contains_scam_keyword or vector.risk_score > 0.3:
+        """Infer best message type from feature vector when classification is missing."""
+        if getattr(vector, "contains_scam_keyword", False):
             return "scam"
-        if vector.contains_payment or vector.contains_invoice:
+        if getattr(vector, "contains_payment", False) or getattr(vector, "contains_invoice", False):
             return "payment"
-        if vector.contains_event or vector.contains_meeting:
-            return "event"
-        if vector.business or vector.conversation_type == "business":
+        has_urg = getattr(vector, "contains_urgent_keyword", False) or getattr(vector, "is_urgent", False) or getattr(vector, "contains_deadline", False)
+        if has_urg or getattr(vector, "during_quiet_hours", False):
+            return "urgent"
+        if getattr(vector, "is_forwarded", False) and getattr(vector, "forwarded_count", 0) > 3:
+            return "spam"
+        if getattr(vector, "group_type", "") == "office" or getattr(vector, "trusted_business", False):
             return "business_update"
-        if vector.contains_greeting:
-            return "greeting"
-        if vector.is_forwarded or vector.forwarded_count > 2:
-            return "forward"
-        if vector.contains_offer or vector.contains_discount:
-            return "promotion"
-        if vector.personal or vector.conversation_type == "personal":
+        if getattr(vector, "trusted_sender", False):
             return "personal"
-        if vector.group or vector.conversation_type == "group":
-            return "business_update"
-        return "unknown"
+        return "business_update"

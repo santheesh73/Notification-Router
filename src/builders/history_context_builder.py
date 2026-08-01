@@ -8,7 +8,7 @@ from src.utils.logger import logger
 
 
 class HistoryContextBuilder(BaseContextBuilder[HistoryProfile]):
-    """Builder for assembling HistoryProfile records and secondary O(1) indices."""
+    """Builder for assembling HistoryProfile records and secondary O(1) indices strictly from message_history.csv."""
 
     def __init__(self, repository) -> None:
         super().__init__(repository)
@@ -18,15 +18,11 @@ class HistoryContextBuilder(BaseContextBuilder[HistoryProfile]):
         self._group_index: dict[str, list[HistoryProfile]] = defaultdict(list)
 
     def build(self) -> dict[str, HistoryProfile]:
-        """Build HistoryProfile dictionary indexed by message_id with O(1) indices.
+        """Build HistoryProfile dictionary indexed by message_id from message_history.csv.
 
         Returns:
             Dictionary mapping message_id -> HistoryProfile.
         """
-        msgs_df = self.get_dataset("messages")
-        if msgs_df.empty:
-            msgs_df = self.get_dataset("sample_messages")
-
         evts_df = self.get_dataset("message_events")
         mhist_df = self.get_dataset("message_history")
 
@@ -56,7 +52,7 @@ class HistoryContextBuilder(BaseContextBuilder[HistoryProfile]):
                 if "event_timestamp" in row and row["event_timestamp"]:
                     event_time_map[msg_id] = str(row["event_timestamp"])
 
-        # 2. Iterate through message_history dataset first (primary historical repository)
+        # 2. Iterate through message_history dataset strictly (historical evidence namespace)
         if not mhist_df.empty:
             for _, row in mhist_df.iterrows():
                 msg_id = str(row.get("message_id", row.get("history_id", "")))
@@ -105,48 +101,8 @@ class HistoryContextBuilder(BaseContextBuilder[HistoryProfile]):
                 if grp_id:
                     self._group_index[grp_id].append(profile)
 
-        # 3. Add current messages DataFrame to profiles if not already present
-        if not msgs_df.empty:
-            for _, row in msgs_df.iterrows():
-                msg_id = str(row["message_id"])
-                if msg_id not in profiles:
-                    sender = str(row.get("sender_id", row.get("sender_user_id", "unknown")))
-                    recipient = str(row.get("recipient_id", row.get("user_id", "unknown")))
-                    grp_id = str(row.get("group_id", "")) if str(row.get("group_id", "")) not in ("nan", "") else None
-                    biz_id = str(row.get("business_id", "")) if str(row.get("business_id", "")) not in ("nan", "") else None
-                    m_text = str(row.get("message_text", "")) if str(row.get("message_text", "")) != "nan" else ""
-                    m_type = str(row.get("media_type", "")) if str(row.get("media_type", "")) != "nan" else None
-                    event_time = str(row.get("timestamp", "")) or event_time_map.get(msg_id)
-
-                    conv = f"group:{grp_id}" if grp_id else (f"business:{biz_id}" if biz_id else f"direct:{sender}")
-                    evt_flags = events_map[msg_id]
-
-                    profile = HistoryProfile(
-                        message_id=msg_id,
-                        user_id=recipient,
-                        sender=sender,
-                        conversation=conv,
-                        group_id=grp_id,
-                        business_id=biz_id,
-                        message_text=m_text,
-                        media_type=m_type,
-                        opened=evt_flags["opened"],
-                        replied=evt_flags["replied"],
-                        dismissed=evt_flags["dismissed"],
-                        reported=evt_flags["reported"],
-                        event_time=event_time,
-                    )
-                    profiles[msg_id] = profile
-                    self._user_index[recipient].append(profile)
-                    if sender and sender != "unknown":
-                        self._sender_index[sender].append(profile)
-                    if biz_id:
-                        self._business_index[biz_id].append(profile)
-                    if grp_id:
-                        self._group_index[grp_id].append(profile)
-
         self._cache = profiles
-        logger.info(f"Built HistoryProfile contexts for {len(profiles)} records.")
+        logger.info(f"Built HistoryProfile contexts for {len(profiles)} historical records.")
         return profiles
 
     def get_history_by_message(self, message_id: str) -> HistoryProfile | None:

@@ -34,6 +34,7 @@ class ConfidenceEngine:
         media_result: MediaResult | None,
         vector: FeatureVector,
         action: str,
+        message_type: str = "unknown",
     ) -> float:
         """Compute calibrated confidence score.
 
@@ -44,9 +45,11 @@ class ConfidenceEngine:
             media_result: MediaResult instance or None.
             vector: FeatureVector instance.
             action: Resolved routing action string.
+            message_type: Resolved message_type string.
 
         Returns:
-            Calibrated confidence float bounded in [0.0, 1.0].
+            Calibrated confidence float bounded in [0.45, 0.99].
         """
         base = self.scoring_engine.compute_base_score(rule_result, llm_result, retrieval_result, media_result)
-        return self.calibrator.calibrate(base, vector, retrieval_result, action)
+        mtype = message_type if message_type != "unknown" else (rule_result.message_type if rule_result and rule_result.resolved else "unknown")
+        return self.calibrator.calibrate(base, vector, retrieval_result, action, message_type=mtype)
