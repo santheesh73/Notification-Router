@@ -2,28 +2,26 @@
   "rule_optimization": {
     "total_rules_evaluated": 15,
     "active_rules": [
+      "OfficeRule",
       "PaymentRule",
       "ScamRule",
-      "EventRule",
-      "DuplicateRule",
-      "OfficeRule",
       "BusinessRule",
       "FamilyRule",
-      "UrgentRule",
+      "GreetingRule",
+      "DuplicateRule",
       "PersonalRule",
-      "GreetingRule"
+      "EventRule"
     ],
     "rule_trigger_counts": {
-      "PaymentRule": 15,
-      "ScamRule": 29,
-      "EventRule": 7,
-      "DuplicateRule": 14,
-      "OfficeRule": 26,
-      "BusinessRule": 6,
+      "OfficeRule": 9,
+      "PaymentRule": 2,
+      "ScamRule": 7,
+      "BusinessRule": 1,
       "FamilyRule": 3,
-      "UrgentRule": 3,
-      "PersonalRule": 1,
-      "GreetingRule": 2
+      "GreetingRule": 1,
+      "DuplicateRule": 2,
+      "PersonalRule": 3,
+      "EventRule": 1
     },
     "recommendations": [
       "Keep ScamRule at Priority.CRITICAL (Priority 1) to guarantee zero false negatives.",
@@ -52,5 +50,5 @@
     "status": "optimized",
     "context_compression": "active"
   },
-  "timestamp": "2026-08-02T01:39:56.085693"
+  "timestamp": "2026-08-02T02:06:50.607557"
 }

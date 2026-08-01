@@ -59,11 +59,17 @@ class PerformanceBenchmark:
         mps = round(total_msgs / elapsed, 2)
         avg_lat_ms = round((elapsed / total_msgs) * 1000.0, 2) if total_msgs > 0 else 0.0
 
-        rule_cnt = sum(1 for d in decisions if d.decision_source == "RULE_ENGINE")
-        llm_cnt = sum(1 for d in decisions if d.decision_source == "LLM" or d.resolved_by_ai)
+        rule_cnt = sum(
+            1 for d in decisions
+            if not getattr(d, "resolved_by_ai", False) or "RuleEngine" in str(d.decision_source) or str(d.decision_source).startswith("Rule")
+        )
+        llm_cnt = sum(
+            1 for d in decisions
+            if getattr(d, "resolved_by_ai", False) or "LLM" in str(d.decision_source)
+        )
 
-        rule_rate = round((rule_cnt / total_msgs) * 100.0, 2) if total_msgs > 0 else 0.0
-        llm_rate = round((llm_cnt / total_msgs) * 100.0, 2) if total_msgs > 0 else 0.0
+        rule_rate = round((rule_cnt / total_msgs) * 100.0, 1) if total_msgs > 0 else 0.0
+        llm_rate = round((llm_cnt / total_msgs) * 100.0, 1) if total_msgs > 0 else 0.0
         avg_conf = (
             round(sum(d.confidence for d in decisions) / total_msgs, 4)
             if total_msgs > 0

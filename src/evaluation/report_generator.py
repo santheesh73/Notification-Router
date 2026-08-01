@@ -55,11 +55,15 @@ class ReportGenerator:
     def generate_execution_report(self, benchmark: BenchmarkReport, val_report: OutputValidationReport) -> Path:
         """Generate reports/execution_report.json."""
         path = self.reports_dir / "execution_report.json"
+        rule_cov = benchmark.rule_resolution_rate
+        llm_cov = benchmark.llm_resolution_rate
         data = {
             "total_processed": benchmark.total_messages,
             "messages_failed": 0,
-            "rule_decisions": int(benchmark.total_messages * (benchmark.rule_resolution_rate / 100.0)),
-            "ai_decisions": int(benchmark.total_messages * (benchmark.llm_resolution_rate / 100.0)),
+            "rule_decisions": int(round(benchmark.total_messages * (rule_cov / 100.0))),
+            "ai_decisions": int(round(benchmark.total_messages * (llm_cov / 100.0))),
+            "rule_coverage_pct": rule_cov,
+            "llm_coverage_pct": llm_cov,
             "average_confidence": benchmark.average_confidence,
             "processing_time": benchmark.total_execution_time_seconds,
             "messages_per_second": benchmark.messages_per_second,
@@ -86,6 +90,8 @@ class ReportGenerator:
         path = self.reports_dir / "quality_report.json"
         data = {
             "coverage": f"{metrics.evidence_coverage_rate}%",
+            "rule_coverage": f"{metrics.rule_resolution_rate}%",
+            "llm_coverage": f"{metrics.llm_resolution_rate}%",
             "failures": len(val_report.invalid_actions) + len(val_report.invalid_confidences),
             "warnings": len(val_report.duplicate_message_ids),
             "action_distribution": metrics.action_counts,
@@ -128,8 +134,8 @@ The AI-powered WhatsApp Message Notification Router is a modular, production-qua
 - **Throughput**: {benchmark.messages_per_second} msg/s
 - **Average Latency**: {benchmark.average_latency_ms} ms/msg
 - **Peak Memory Usage**: {benchmark.peak_memory_mb} MB
-- **Rule Resolution Rate**: {benchmark.rule_resolution_rate}%
-- **AI Resolution Rate**: {benchmark.llm_resolution_rate}%
+- **Rule Coverage**: {benchmark.rule_resolution_rate}%
+- **LLM Coverage**: {benchmark.llm_resolution_rate}%
 - **Average Calibrated Confidence**: {benchmark.average_confidence:.4f}
 - **CSV Schema Validation**: {"PASSED" if val_report.is_valid else "FAILED"}
 

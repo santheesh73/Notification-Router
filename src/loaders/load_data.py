@@ -111,13 +111,15 @@ class ValidationReport:
 class DataRepository:
     """Repository class managing the ingestion, validation, and summary of datasets."""
 
-    def __init__(self, dataset_path: Path | None = None) -> None:
+    def __init__(self, dataset_path: Path | None = None, input_file: Path | None = None) -> None:
         """Initialize DataRepository.
 
         Args:
             dataset_path: Path to dataset directory. Defaults to DATASET_PATH setting.
+            input_file: Path to input messages CSV file. Defaults to dataset_path/messages.csv.
         """
         self.dataset_path: Path = dataset_path or DATASET_PATH
+        self.input_file: Path | None = input_file
         self._data_frames: dict[str, pd.DataFrame] = {}
         self._validation_reports: dict[str, ValidationReport] = {}
 
@@ -183,8 +185,11 @@ class DataRepository:
 
         return df
 
-    def load_all(self) -> dict[str, pd.DataFrame]:
-        """Load all 13 required CSV datasets from dataset_path.
+    def load_all(self, input_file: Path | None = None) -> dict[str, pd.DataFrame]:
+        """Load all required CSV datasets from dataset_path.
+
+        Args:
+            input_file: Optional input CSV path for messages. Defaults to self.input_file or dataset_path/messages.csv.
 
         Returns:
             Dictionary mapping dataset names to DataFrames.
@@ -198,9 +203,14 @@ class DataRepository:
             raise MissingFolderError(msg)
 
         logger.info(f"Loading datasets from: {self.dataset_path}")
+        target_input = input_file or self.input_file
 
         for name in REQUIRED_DATASETS:
-            csv_path = self.dataset_path / f"{name}.csv"
+            if name == "messages" and target_input and target_input.exists():
+                csv_path = target_input
+            else:
+                csv_path = self.dataset_path / f"{name}.csv"
+
             try:
                 df = self.load_single_csv(csv_path)
                 self._data_frames[name] = df

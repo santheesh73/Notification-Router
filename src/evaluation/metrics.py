@@ -20,6 +20,8 @@ class MetricsSummary:
     max_confidence: float = 0.0
     evidence_coverage_count: int = 0
     evidence_coverage_rate: float = 0.0
+    rule_resolution_rate: float = 0.0
+    llm_resolution_rate: float = 0.0
 
     def to_dict(self) -> dict[str, Any]:
         """Convert metrics summary to dictionary."""
@@ -47,6 +49,8 @@ class MetricsCalculator:
         source_counts: dict[str, int] = {}
         confidences: list[float] = []
         ev_count = 0
+        rule_cnt = 0
+        llm_cnt = 0
 
         for dec in decisions:
             action_counts[dec.action] = action_counts.get(dec.action, 0) + 1
@@ -57,10 +61,19 @@ class MetricsCalculator:
             if dec.evidence_message_ids and len(dec.evidence_message_ids) > 0 and dec.evidence_message_ids[0] != "none":
                 ev_count += 1
 
+            if getattr(dec, "resolved_by_ai", False) or "LLM" in str(dec.decision_source):
+                llm_cnt += 1
+            elif dec.decision_source == "FALLBACK":
+                pass
+            else:
+                rule_cnt += 1
+
         avg_conf = round(statistics.mean(confidences), 4) if confidences else 0.0
         min_conf = round(min(confidences), 4) if confidences else 0.0
         max_conf = round(max(confidences), 4) if confidences else 0.0
-        ev_rate = round((ev_count / total) * 100.0, 2) if total > 0 else 0.0
+        ev_rate = round((ev_count / total) * 100.0, 1) if total > 0 else 0.0
+        rule_rate = round((rule_cnt / total) * 100.0, 1) if total > 0 else 0.0
+        llm_rate = round((llm_cnt / total) * 100.0, 1) if total > 0 else 0.0
 
         return MetricsSummary(
             total_messages=total,
@@ -72,4 +85,6 @@ class MetricsCalculator:
             max_confidence=max_conf,
             evidence_coverage_count=ev_count,
             evidence_coverage_rate=ev_rate,
+            rule_resolution_rate=rule_rate,
+            llm_resolution_rate=llm_rate,
         )

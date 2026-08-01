@@ -4,7 +4,7 @@
   "rule_decisions": 106,
   "ai_decisions": 4,
   "average_confidence": 0.7955,
-  "total_processing_time_seconds": 0.1138,
-  "messages_per_second": 966.53,
-  "finish_timestamp": "2026-08-02T01:39:56.071970"
+  "total_processing_time_seconds": 0.4826,
+  "messages_per_second": 227.92,
+  "finish_timestamp": "2026-08-02T02:07:01.638029"
 }

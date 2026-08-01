@@ -1,6 +1,8 @@
 """Main Entry Point for AI-powered WhatsApp Message Notification Router with Hybrid Multi-LLM Router."""
 
-from config.settings import OUTPUT_CSV_PATH, settings
+import argparse
+from config.execution_context import ExecutionContext, RuntimeConfig, RuntimeStatistics
+from config.settings import settings
 from src.builders.context_manager import ContextManager
 from src.confidence.fusion_engine import DecisionFusionEngine
 from src.evaluation.benchmark import PerformanceBenchmark
@@ -15,6 +17,7 @@ from src.llm.provider_health import ProviderHealthChecker
 from src.media.media_manager import MediaManager
 from src.media.media_pipeline import MediaPipeline
 from src.optimization.optimizer import SystemOptimizer
+from src.output.output_writer import OutputWriter
 from src.pipeline.execution_pipeline import ExecutionPipeline
 from src.retrieval.retrieval_engine import RetrievalEngine
 from src.retrieval.retrieval_pipeline import RetrievalPipeline
@@ -27,7 +30,11 @@ from submission.verifier import SubmissionVerifier
 
 def main() -> None:
     """Execute Phase 1 through Phase 11 complete pipeline with Hybrid Multi-LLM Routing."""
-    # 1. System Directories & Singleton Logger
+    # 1. Parse CLI Arguments & Initialize Runtime Execution Context
+    runtime_config = RuntimeConfig.from_cli_args()
+    exec_context = ExecutionContext(runtime_config)
+
+    # System Directories & Singleton Logger
     settings.ensure_directories_exist()
     setup_logger()
 
@@ -41,7 +48,7 @@ def main() -> None:
     health_results = ProviderHealthChecker.check_all()
 
     # 3. Phase 1: Data Repository Loading & Validation
-    repository = DataRepository(dataset_path=settings.dataset_path)
+    repository = DataRepository(dataset_path=runtime_config.dataset_path, input_file=runtime_config.input_path)
     repository.load_all()
     repository.validate()
 
@@ -60,18 +67,17 @@ def main() -> None:
     logger.info(f"Loaded {num_images} Images")
     logger.info(f"Loaded {num_voice} Voice Notes")
 
-    # EXECUTION VALIDATION HEADER
-    print("\n" + "=" * 60)
-    print("                EXECUTION VALIDATION CONFIGURATION")
-    print("=" * 60)
-    print(f"Dataset Path:       {settings.dataset_path}")
-    print(f"Dataset Size:       {num_messages} Messages")
-    print(f"Images Found:       {num_images} Images")
-    print(f"Voice Notes Found:  {num_voice} Voice Notes")
-    print(f"Primary Model:      Groq (llama-3.3-70b-versatile)")
-    print(f"Fallback Model:     Gemma (gemma-3-27b-it)")
-    print(f"Execution Mode:     Hybrid Multi-LLM Production")
-    print("=" * 60 + "\n")
+    # EXACT REQUIRED EXECUTION CONFIGURATION HEADER
+    print("\n" + "=" * 51)
+    print("               EXECUTION CONFIGURATION")
+    print("=" * 51)
+    print("Input Dataset:")
+    print(f"{runtime_config.input_path}")
+    print("Output File:")
+    print(f"{runtime_config.output_path}")
+    print("Messages Loaded:")
+    print(f"{num_messages}")
+    print("=" * 51 + "\n")
 
     # 4. Phase 2: Build Context Layer & Profiles
     context = ContextManager(repository)
@@ -104,25 +110,20 @@ def main() -> None:
     # 9. Phase 7: Hybrid Multi-LLM Decision Router (Groq -> Gemma -> Rule Fallback)
     logger.info("Orchestrating AI LLM decisions using Hybrid Multi-LLM Router...")
     hybrid_router = HybridLLMRouter(batch_size=10)
-    decision_results = hybrid_router.process_batch(
-        vectors=feature_vectors,
-        rule_results=routing_results,
-        context=context,
-        media_results=media_results,
-        retrieval_results=retrieval_results,
-    )
 
     # 10. Phase 8: Decision Fusion Engine
     logger.info("Fusing multi-source decision signals into FinalDecisions...")
     fusion_engine = DecisionFusionEngine()
 
     # 11. Phase 9: End-to-End Execution Pipeline
-    logger.info("Running End-to-End Execution Pipeline and writing output.csv...")
+    logger.info(f"Running End-to-End Execution Pipeline and writing output to {runtime_config.output_path}...")
+    output_writer = OutputWriter(output_path=runtime_config.output_path)
     execution_pipeline = ExecutionPipeline(
         repository=repository,
         context=context,
-        batch_size=50,
-        checkpoint_interval=25,
+        batch_size=runtime_config.batch_size,
+        checkpoint_interval=runtime_config.checkpoint_interval,
+        output_writer=output_writer,
         feature_pipeline=feature_pipeline,
         rule_engine=rule_engine,
         retrieval_engine=retrieval_engine,
@@ -130,20 +131,30 @@ def main() -> None:
         hybrid_router=hybrid_router,
         fusion_engine=fusion_engine,
     )
-    pipeline_decisions = execution_pipeline.run(resume=True, overwrite_output=True)
+    pipeline_decisions = execution_pipeline.run(
+        resume=runtime_config.resume,
+        overwrite_output=runtime_config.overwrite_output,
+    )
+
+    # 12. Compute Centralized Runtime Statistics
+    stats = exec_context.stats
+    stats.compute_from_decisions(pipeline_decisions)
+    stats.images_count = num_images
+    stats.voice_count = num_voice
 
     # Cache Metrics Computation
     total_cache_hits = media_manager.cache.hits + retrieval_engine.cache.hits + hybrid_router.cache.hits
     total_cache_misses = media_manager.cache.misses + retrieval_engine.cache.misses + hybrid_router.cache.misses
     total_cache_requests = total_cache_hits + total_cache_misses
     cache_hit_rate = (total_cache_hits / total_cache_requests * 100.0) if total_cache_requests > 0 else 0.0
+    stats.cache_hit_rate = cache_hit_rate
 
     logger.info(f"Cache Hit Rate: {cache_hit_rate:.1f}% ({total_cache_hits} hits, {total_cache_misses} misses)")
 
-    # 12. Phase 10: Evaluation & Performance Benchmark
+    # 13. Phase 10: Evaluation & Performance Benchmark
     logger.info("Running Output Evaluator & Performance Benchmark...")
     evaluator = OutputEvaluator()
-    val_report = evaluator.evaluate(OUTPUT_CSV_PATH, expected_count=len(messages_df))
+    val_report = evaluator.evaluate(runtime_config.output_path, expected_count=len(messages_df))
 
     bench_report = benchmark.stop(pipeline_decisions)
     metrics_calculator = MetricsCalculator()
@@ -152,31 +163,10 @@ def main() -> None:
     report_gen = ReportGenerator()
     report_gen.generate_all(pipeline_decisions, metrics_summary, bench_report, val_report)
 
-    # Statistical Evaluation Computations
-    total_count = len(pipeline_decisions)
-    rules_resolved = sum(1 for d in pipeline_decisions if d.decision_source in ("RULE_ENGINE", "FALLBACK") and not d.resolved_by_ai)
-    ai_resolved = sum(1 for d in pipeline_decisions if d.resolved_by_ai)
-    rule_coverage_pct = (rules_resolved / total_count * 100.0) if total_count > 0 else 0.0
-    llm_coverage_pct = (ai_resolved / total_count * 100.0) if total_count > 0 else 0.0
+    # Consistency Verification Across Reports
+    stats.verify_consistency(bench_report.rule_resolution_rate, bench_report.llm_resolution_rate)
 
-    # Distributions
-    action_counts: dict[str, int] = {}
-    type_counts: dict[str, int] = {}
-    evidence_count = 0
-    conf_values = [d.confidence for d in pipeline_decisions]
-
-    for d in pipeline_decisions:
-        action_counts[d.action] = action_counts.get(d.action, 0) + 1
-        type_counts[d.message_type] = type_counts.get(d.message_type, 0) + 1
-        if d.evidence_message_ids and len(d.evidence_message_ids) > 0 and d.evidence_message_ids != ["none"]:
-            evidence_count += 1
-
-    min_conf = min(conf_values) if conf_values else 0.0
-    max_conf = max(conf_values) if conf_values else 0.0
-    mean_conf = (sum(conf_values) / len(conf_values)) if conf_values else 0.0
-    evidence_pct = (evidence_count / total_count * 100.0) if total_count > 0 else 0.0
-
-    # 13. Phase 11: System Optimization & Quality Auditing
+    # 14. Phase 11: System Optimization & Quality Auditing
     logger.info("Phase 11: Executing System Optimization & Quality Audits...")
     system_optimizer = SystemOptimizer()
     audit_dict = system_optimizer.run_optimization(
@@ -184,7 +174,7 @@ def main() -> None:
         rule_results=routing_results,
         benchmark=bench_report,
         cache_hit_rate=cache_hit_rate,
-        rule_coverage=rule_coverage_pct / 100.0,
+        rule_coverage=stats.rule_coverage_pct / 100.0,
     )
 
     # Package code.zip
@@ -198,14 +188,14 @@ def main() -> None:
     print("\n" + "=" * 60)
     print("                    EXECUTION SUMMARY REPORT")
     print("=" * 60)
-    print(f"Messages Processed:      {total_count}")
-    print(f"Prediction Distribution: Total {total_count} predictions generated")
-    print(f"Action Distribution:     {action_counts}")
-    print(f"Message Type Dist:       {type_counts}")
-    print(f"Confidence Statistics:   Min={min_conf:.4f}, Mean={mean_conf:.4f}, Max={max_conf:.4f}")
-    print(f"Evidence Usage:          {evidence_pct:.1f}% ({evidence_count}/{total_count} with historical evidence)")
-    print(f"Rule Coverage:           {rule_coverage_pct:.1f}% ({rules_resolved}/{total_count})")
-    print(f"LLM Coverage:            {llm_coverage_pct:.1f}% ({ai_resolved}/{total_count})")
+    print(f"Messages Processed:      {stats.total_messages}")
+    print(f"Prediction Distribution: Total {stats.total_messages} predictions generated")
+    print(f"Action Distribution:     {stats.action_counts}")
+    print(f"Message Type Dist:       {stats.type_counts}")
+    print(f"Confidence Statistics:   Min={stats.confidence_min:.4f}, Mean={stats.confidence_mean:.4f}, Max={stats.confidence_max:.4f}")
+    print(f"Evidence Usage:          {stats.evidence_usage_pct:.1f}% ({int(round(stats.total_messages * stats.evidence_usage_pct / 100.0))}/{stats.total_messages} with historical evidence)")
+    print(f"Rule Coverage:           {stats.rule_coverage_pct:.1f}% ({stats.rule_resolved_count}/{stats.total_messages})")
+    print(f"LLM Coverage:            {stats.llm_coverage_pct:.1f}% ({stats.llm_resolved_count}/{stats.total_messages})")
     print(f"Output Validation:       {'PASSED' if val_report.is_valid else 'FAILED'}")
     print(f"Submissible Zip Package: {zip_path}")
     print(f"Submission Verification: {'PASSED' if verification_report.is_valid else 'FAILED'}")
