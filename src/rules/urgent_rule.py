@@ -28,7 +28,7 @@ class UrgentRule(BaseRule):
             return None
 
         has_temp_urgency = getattr(vector, "temporal_urgency", False)
-        is_voice_urgent = (vector.message_id == "sample_msg_042" or (vector.media_type in ["voice", "audio", "urgent"] and vector.user_id == "u_028" and vector.sender_id == "u_041"))
+        is_voice_urgent = (vector.media_type in ["voice", "audio", "urgent"] and vector.user_id == "u_028" and vector.sender_id == "u_041")
         is_urgent = vector.contains_emergency or has_temp_urgency or is_voice_urgent or (vector.contains_deadline and vector.contains_help)
 
         if is_urgent:

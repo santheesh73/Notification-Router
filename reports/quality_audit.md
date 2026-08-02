@@ -10,12 +10,12 @@
 - **Total Predictions Audited**: 30
 - **Pipeline Fallbacks**: 0
 - **Low Confidence Predictions (<0.50)**: 1
-- **Rule Resolution Efficiency**: 100.0%
+- **Rule Resolution Efficiency**: 96.7%
 
 ## 3. Key Findings & Strengths
 - Zero pipeline fallback predictions (100% successful routing resolution).
 - Output CSV Validation & Schema: PASSED (40.0/40 pts).
-- Rule Engine Coverage: 100.0% (20.0/20 pts).
+- Rule Engine Coverage: 96.7% (20.0/20 pts).
 - Cache Efficiency: 45.9% hit rate (15.0/15 pts).
 - Media Pipeline Resolution: 100% success (15.0/15 pts).
 - Evidence Coverage: 30/30 messages supplied with evidence.

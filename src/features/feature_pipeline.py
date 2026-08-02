@@ -64,6 +64,7 @@ class FeaturePipeline:
         self.business_extractor = BusinessFeatureExtractor()
         self.temporal_extractor = TemporalFeatureExtractor()
         self.safety_extractor = SafetyFeatureExtractor()
+        self._seen_texts: dict[str, int] = {}
 
     def process(self, message: dict[str, Any] | pd.Series) -> FeatureVector:
         """Process a single incoming message and produce a FeatureVector.
@@ -103,8 +104,19 @@ class FeaturePipeline:
         if raw_text.lower() == "nan":
             raw_text = ""
 
+        # Dynamic Batch Deduplication Tracker
+        dup_prob = 0.0
+        if raw_text.strip():
+            norm_key = raw_text.strip().lower()
+            prev_cnt = self._seen_texts.get(norm_key, 0)
+            self._seen_texts[norm_key] = prev_cnt + 1
+            if prev_cnt > 0:
+                dup_prob = 1.0
+
         # 1. Run Extractors
         text_feats = self.text_extractor.extract(msg_dict, self.context)
+        if dup_prob > 0.0:
+            text_feats["duplicate_probability"] = dup_prob
         conv_feats = self.conv_extractor.extract(msg_dict, self.context)
         sender_feats = self.sender_extractor.extract(msg_dict, self.context)
         user_feats = self.user_extractor.extract(msg_dict, self.context)

@@ -1,10 +1,10 @@
 {
-  "total_processed": 110,
+  "total_processed": 30,
   "messages_failed": 0,
-  "rule_decisions": 105,
-  "ai_decisions": 5,
-  "average_confidence": 0.7254,
-  "total_processing_time_seconds": 0.4947,
-  "messages_per_second": 222.37,
-  "finish_timestamp": "2026-08-02T07:09:18.287946"
+  "rule_decisions": 29,
+  "ai_decisions": 1,
+  "average_confidence": 0.7333,
+  "total_processing_time_seconds": 0.0425,
+  "messages_per_second": 705.77,
+  "finish_timestamp": "2026-08-02T07:30:26.620255"
 }

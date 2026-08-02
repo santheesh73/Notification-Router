@@ -56,8 +56,7 @@ class PromotionRule(BaseRule):
                 is_promo = True
 
         if is_promo:
-            lower_txt = text_content.lower()
-            is_duplicate = vector.is_forwarded or getattr(vector, "duplicate_probability", 0) > 0.5 or vector.message_id == "sample_msg_045"
+            is_duplicate = vector.is_forwarded or getattr(vector, "duplicate_probability", 0) > 0.5
             is_curated_deal = any(k in lower_txt for k in ["rs ", "per person", "nights", "ladakh", "helmet", "kurta set"])
             is_unsolicited_marketing = any(k in lower_txt for k in ["50% off", "try50", "shopping offer"])
 

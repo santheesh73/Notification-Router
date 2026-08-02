@@ -5,8 +5,8 @@ msg_090,digest,event,Event schedule update from sender u_050 routed to digest.,0
 msg_048,notify,urgent,Time-sensitive alert from sender u_053 in group group_011 requiring immediate user attention.,0.875,message_0237;message_0151;message_0152
 msg_040,mute,greeting,Social greeting from sender u_051 in group group_001 routed to mute.,0.595,message_0136;message_0135;message_0194
 msg_075,digest,event,Event schedule update from business business_061 routed to digest.,0.7069,message_0206;message_0205;message_0294
-msg_005,digest,promotion,Marketing update from sender u_048 in group group_005 routed to summary digest.,0.585,message_0049;message_0390;message_0401
-msg_104,notify,personal,Direct personal communication from sender u_048 routed to notify.,0.7865,message_0050;message_0224;message_0383
+msg_005,mute,promotion,Marketing update from sender u_048 in group group_005 routed to summary mute.,0.615,message_0049;message_0390;message_0401
+msg_104,digest,business_update,Operational notification from sender u_048 routed to digest.,0.6365,message_0050;message_0224;message_0383
 msg_069,digest,greeting,Social greeting from sender u_051 in group group_001 routed to digest.,0.565,message_0177;message_0194;message_0042
 msg_107,mute,scam,Phishing risk or security threat detected from sender u_050.,0.9748,message_0369;message_0213;message_0235
 msg_070,mute,scam,Phishing risk or security threat detected from sender u_050 in group group_005.,0.985,message_0213;message_0196;message_0174
@@ -14,36 +14,36 @@ msg_003,notify,business_update,Operational notification from business business_0
 msg_099,digest,event,Event schedule update from sender u_046 routed to digest.,0.7094,message_0227;message_0249;message_0118
 msg_008,digest,business_update,Operational notification from business business_091 routed to digest.,0.6437,message_0296;message_0072;message_0071
 msg_092,notify,payment,Financial transaction or payment alert from business business_076.,0.8324,message_0346;message_0102;message_0344
-msg_060,digest,promotion,Marketing update from sender u_045 in group group_012 routed to summary digest.,0.585,message_0175;message_0404;message_0284
+msg_060,mute,promotion,Marketing update from sender u_045 in group group_012 routed to summary mute.,0.615,message_0175;message_0404;message_0284
 msg_004,notify,event,Event schedule update from business business_004 routed to notify.,0.745,message_0047;message_0245;message_0005
 msg_030,digest,event,Event schedule update from sender u_048 in group group_005 routed to digest.,0.715,message_0050;message_0401;message_0113
-msg_045,digest,promotion,Marketing update from sender u_047 in group group_010 routed to summary digest.,0.585,message_0146;message_0145;message_0378
+msg_045,mute,promotion,Marketing update from sender u_047 in group group_010 routed to summary mute.,0.615,message_0146;message_0145;message_0378
 msg_052,digest,event,Event schedule update from business business_064 routed to digest.,0.7078,message_0207;message_0208;message_0159
 msg_009,digest,business_update,Operational notification from sender u_054 in group group_018 routed to digest.,0.645,message_0073;message_0343;message_0074
 msg_071,digest,personal,Direct personal communication from sender u_041 in group group_008 routed to digest.,0.765,message_0197;message_0198;message_0165
 msg_016,mute,scam,Phishing risk or security threat detected from sender u_050 in group group_005.,0.985,message_0202;message_0184;message_0201
-msg_065,digest,promotion,Marketing update from business business_067 routed to summary digest.,0.585,message_0351;message_0261;message_0260
+msg_065,mute,promotion,Marketing update from business business_067 routed to summary mute.,0.615,message_0351;message_0261;message_0260
 msg_038,notify,urgent,Time-sensitive alert from sender u_051 in group group_016 requiring immediate user attention.,0.875,message_0131;message_0132;message_0079
 msg_086,mute,spam,Empty or negligible content message muted as spam.,0.888,message_0222;message_0299;message_0272
 msg_014,mute,promotion,Marketing update from business business_094 routed to summary mute.,0.615,message_0317;message_0258;message_0018
-msg_094,digest,promotion,Marketing update from business business_012 routed to summary digest.,0.5635,message_0356;message_0203;message_0223
+msg_094,mute,promotion,Marketing update from business business_012 routed to summary mute.,0.5935,message_0356;message_0203;message_0223
 msg_029,digest,event,Event schedule update from sender u_048 in group group_005 routed to digest.,0.715,message_0049;message_0390;message_0401
-msg_105,digest,promotion,Marketing update from sender u_051 routed to summary digest.,0.5808,message_0373;message_0233;message_0079
+msg_105,mute,promotion,Marketing update from sender u_051 routed to summary mute.,0.6108,message_0373;message_0233;message_0079
 msg_002,digest,event,Event schedule update from sender u_046 in group group_004 routed to digest.,0.715,message_0003;message_0060;message_0170
 msg_010,digest,business_update,Operational notification from business business_096 routed to digest.,0.645,message_0311;message_0011;message_0242
 msg_078,notify,urgent,Time-sensitive alert from sender u_049 in group group_005 requiring immediate user attention.,0.875,message_0211;message_0212;message_0025
 msg_013,notify,payment,Financial transaction or payment alert from sender u_048 in group group_012.,0.855,message_0081;message_0082;message_0019
-msg_018,digest,promotion,Marketing update from sender u_050 in group group_005 routed to summary digest.,0.5846,message_0092;message_0091;message_0174
+msg_018,mute,promotion,Marketing update from sender u_050 in group group_005 routed to summary mute.,0.6146,message_0092;message_0091;message_0174
 msg_044,mute,scam,Phishing risk or security threat detected from sender u_049 in group group_005.,0.985,message_0144;message_0036;message_0143
 msg_032,digest,business_update,Operational notification from sender u_054 in group group_023 routed to digest.,0.645,message_0120;message_0119;message_0285
-msg_106,digest,personal,Direct personal communication from sender u_054 routed to digest.,0.7579,message_0376;message_0234;message_0377
+msg_106,digest,business_update,Operational notification from sender u_054 routed to digest.,0.6379,message_0376;message_0234;message_0377
 msg_006,notify,payment,Financial transaction or payment alert from sender u_043 in group group_002.,0.855,message_0029;message_0129;message_0215
 msg_109,mute,scam,Phishing risk or security threat detected from sender u_053 in group group_011.,0.985,message_0237;message_0151;message_0152
 msg_108,digest,greeting,Social greeting from business business_062 routed to digest.,0.5602,message_0094;message_0093;message_0236
 msg_019,digest,event,Event schedule update from business business_062 routed to digest.,0.7075,message_0277;message_0093;message_0094
 msg_088,digest,business_update,Operational notification from sender u_048 in group group_005 routed to digest.,0.62,message_0050;message_0335;message_0224
 msg_056,notify,event,Event schedule update from sender u_041 in group group_001 routed to notify.,0.745,message_0168;message_0167;message_0359
-msg_027,digest,promotion,Marketing update from business business_092 routed to summary digest.,0.585,message_0299;message_0272;message_0033
+msg_027,mute,promotion,Marketing update from business business_092 routed to summary mute.,0.615,message_0299;message_0272;message_0033
 msg_050,notify,event,Event schedule update from business business_032 routed to notify.,0.745,message_0246;message_0279;message_0278
 msg_083,digest,business_update,Operational notification from sender u_046 in group group_004 routed to digest.,0.62,message_0219;message_0218;message_0003
 msg_063,notify,urgent,Time-sensitive alert from sender u_049 in group group_014 requiring immediate user attention.,0.875,message_0181;message_0182;message_0025
@@ -51,22 +51,22 @@ msg_033,digest,event,Event schedule update from sender u_041 in group group_009 
 msg_061,digest,greeting,Social greeting from sender u_051 in group group_001 routed to digest.,0.5589,message_0177;message_0194;message_0042
 msg_020,notify,urgent,Time-sensitive alert from sender u_049 in group group_005 requiring immediate user attention.,0.875,message_0095;message_0096;message_0025
 msg_017,digest,business_update,Operational notification from sender u_049 in group group_005 routed to digest.,0.645,message_0025;message_0090;message_0089
-msg_058,digest,promotion,Marketing update from sender u_051 in group group_001 routed to summary digest.,0.585,message_0123;message_0241;message_0078
+msg_058,mute,promotion,Marketing update from sender u_051 in group group_001 routed to summary mute.,0.615,message_0123;message_0241;message_0078
 msg_026,notify,business_update,Operational notification from business business_036 routed to notify.,0.675,message_0028;message_0032;message_0107
-msg_047,digest,promotion,Marketing update from sender u_043 in group group_011 routed to summary digest.,0.585,message_0150;message_0149;message_0139
+msg_047,mute,promotion,Marketing update from sender u_043 in group group_011 routed to summary mute.,0.615,message_0150;message_0149;message_0139
 msg_046,mute,scam,Phishing risk or security threat detected from sender u_041 in group group_008.,0.985,message_0148;message_0147;message_0166
 msg_042,digest,greeting,Social greeting from sender u_043 in group group_011 routed to digest.,0.565,message_0139;message_0140;message_0150
 msg_079,mute,scam,Phishing risk or security threat detected from sender u_050 in group group_005.,0.985,message_0213;message_0196;message_0174
 msg_098,notify,event,Event schedule update from sender u_041 routed to notify.,0.735,message_0359;message_0167;message_0054
 msg_037,digest,greeting,Social greeting from sender u_043 in group group_002 routed to digest.,0.565,message_0029;message_0129;message_0215
-msg_007,digest,promotion,Marketing update from sender u_043 in group group_010 routed to summary digest.,0.585,message_0070;message_0069;message_0008
+msg_007,mute,promotion,Marketing update from sender u_043 in group group_010 routed to summary mute.,0.615,message_0070;message_0069;message_0008
 msg_085,mute,spam,Empty or negligible content message muted as spam.,0.888,message_0221;message_0213;message_0199
 msg_001,notify,urgent,Time-sensitive alert from sender u_043 in group group_002 requiring immediate user attention.,0.875,message_0057;message_0058;message_0240
 msg_021,notify,payment,Financial transaction or payment alert from sender u_043 in group group_002.,0.855,message_0029;message_0129;message_0215
 msg_028,digest,event,Event schedule update from business business_092 routed to digest.,0.715,message_0034;message_0314;message_0111
-msg_012,digest,promotion,Marketing update from sender u_051 in group group_016 routed to summary digest.,0.585,message_0080;message_0247;message_0079
+msg_012,mute,promotion,Marketing update from sender u_051 in group group_016 routed to summary mute.,0.615,message_0080;message_0247;message_0079
 msg_064,digest,forward,Broadcast message (2x forwards) from sender u_050 in group group_005 routed to digest.,0.615,message_0202;message_0184;message_0201
-msg_103,notify,personal,Direct personal communication from sender u_048 routed to notify.,0.7887,message_0065;message_0049;message_0382
+msg_103,digest,business_update,Operational notification from sender u_048 routed to digest.,0.6387,message_0065;message_0049;message_0382
 msg_031,digest,event,Event schedule update from sender u_046 in group group_004 routed to digest.,0.715,message_0118;message_0117;message_0249
 msg_057,digest,business_update,Operational notification from sender u_046 in group group_004 routed to digest.,0.645,message_0003;message_0060;message_0170
 msg_087,digest,business_update,Operational notification from sender u_052 in group group_022 routed to digest.,0.62,message_0223;message_0204;message_0358
@@ -74,10 +74,10 @@ msg_067,notify,payment,Financial transaction or payment alert from sender u_043 
 msg_039,notify,payment,Financial transaction or payment alert from sender u_045 in group group_003.,0.855,message_0209;message_0133;message_0051
 msg_082,digest,business_update,Operational notification from sender u_046 in group group_004 routed to digest.,0.62,message_0218;message_0397;message_0003
 msg_066,mute,promotion,Marketing update from business business_067 routed to summary mute.,0.615,message_0336;message_0257;message_0402
-msg_049,digest,promotion,Marketing update from business business_060 routed to summary digest.,0.5808,message_0154;message_0291;message_0153
+msg_049,mute,promotion,Marketing update from business business_060 routed to summary mute.,0.6108,message_0154;message_0291;message_0153
 msg_015,digest,business_update,Operational notification from sender u_049 in group group_005 routed to digest.,0.6446,message_0199;message_0200;message_0085
 msg_051,mute,promotion,Marketing update from business business_003 routed to summary mute.,0.615,message_0257;message_0337;message_0356
-msg_097,digest,personal,Direct personal communication from sender u_041 routed to digest.,0.757,message_0366;message_0167;message_0054
+msg_097,notify,personal,Personal or casual message from known contact.,0.787,message_0366;message_0167;message_0054
 msg_089,digest,greeting,Social greeting from sender u_049 routed to digest.,0.5501,message_0238;message_0096;message_0090
 msg_053,digest,event,Event schedule update from sender u_054 in group group_021 routed to digest.,0.715,message_0253;message_0161;message_0162
 msg_059,digest,business_update,Operational notification from sender u_050 in group group_005 routed to digest.,0.645,message_0213;message_0196;message_0174
@@ -90,7 +90,7 @@ msg_102,digest,greeting,Social greeting from sender u_046 routed to digest.,0.56
 msg_080,digest,greeting,Social greeting from sender u_043 in group group_002 routed to digest.,0.565,message_0029;message_0129;message_0215
 msg_093,notify,payment,Financial transaction or payment alert from business business_070.,0.8322,message_0398;message_0349;message_0347
 msg_034,digest,event,Event schedule update from sender u_051 in group group_001 routed to digest.,0.715,message_0123;message_0042;message_0241
-msg_035,digest,promotion,Marketing update from business business_093 routed to summary digest.,0.585,message_0273;message_0302;message_0281
+msg_035,mute,promotion,Marketing update from business business_093 routed to summary mute.,0.615,message_0273;message_0302;message_0281
 msg_101,digest,event,Event schedule update from sender u_054 routed to digest.,0.708,message_0370;message_0229;message_0268
 msg_041,digest,event,Event schedule update from business business_095 routed to digest.,0.715,message_0329;message_0287;message_0308
 msg_011,mute,greeting,Social greeting from sender u_051 in group group_001 routed to mute.,0.595,message_0123;message_0241;message_0078
@@ -102,7 +102,7 @@ msg_054,digest,greeting,Social greeting from sender u_052 in group group_014 rou
 msg_068,digest,business_update,Operational notification from sender u_054 in group group_015 routed to digest.,0.645,message_0191;message_0192;message_0010
 msg_100,notify,urgent,Time-sensitive alert from sender u_046 requiring immediate user attention.,0.8707,message_0362;message_0228;message_0117
 msg_062,digest,event,Event schedule update from sender u_043 in group group_002 routed to digest.,0.715,message_0029;message_0129;message_0215
-msg_096,digest,personal,Direct personal communication from sender u_049 routed to digest.,0.7485,message_0025;message_0199;message_0095
+msg_096,notify,personal,Personal or casual message from known contact.,0.7785,message_0025;message_0199;message_0095
 msg_043,notify,urgent,Time-sensitive alert from sender u_043 in group group_002 requiring immediate user attention.,0.875,message_0029;message_0129;message_0215
 msg_077,notify,event,Event schedule update from sender u_045 in group group_003 routed to notify.,0.745,message_0209;message_0133;message_0051
 msg_081,digest,business_update,Operational notification from sender u_045 in group group_003 routed to digest.,0.62,message_0217;message_0331;message_0209

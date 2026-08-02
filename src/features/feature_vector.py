@@ -132,6 +132,7 @@ class FeatureVector:
     promotion_score: int = 0
     greeting_score: int = 0
     forward_probability: float = 0.0
+    duplicate_probability: float = 0.0
     personal_familiarity_score: float = 0.0
     business_verification_score: float = 0.0
     historical_interaction_frequency: float = 0.0
