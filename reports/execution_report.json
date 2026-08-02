@@ -6,8 +6,8 @@
   "rule_coverage_pct": 100.0,
   "llm_coverage_pct": 0.0,
   "average_confidence": 0.7413,
-  "processing_time": 1.0071,
-  "messages_per_second": 29.79,
+  "processing_time": 1.2348,
+  "messages_per_second": 24.3,
   "output_csv_valid": true,
-  "timestamp": "2026-08-02T07:54:15.248859"
+  "timestamp": "2026-08-02T08:06:39.596318"
 }
