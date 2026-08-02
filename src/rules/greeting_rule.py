@@ -24,7 +24,7 @@ class GreetingRule(BaseRule):
     """Routes casual greetings, wishes, and pleasantries (Priority: LOW)."""
 
     def __init__(self) -> None:
-        super().__init__(name="GreetingRule", priority=RulePriority.LOW)
+        super().__init__(name="GreetingRule", priority=RulePriority.HIGH)
 
     def evaluate(
         self,
@@ -34,21 +34,30 @@ class GreetingRule(BaseRule):
         if not self.enabled:
             return None
 
-        is_greeting = vector.contains_greeting or vector.contains_thank_you
-        text_content = getattr(vector, "message_text", "") or ""
+        text_content = str(getattr(vector, "message_text", "") or "")
+        lower_txt = text_content.lower()
+
+        # Do not classify as greeting if stronger intent exists
+        if vector.contains_question or getattr(vector, "event_score", 0) > 0 or getattr(vector, "promotion_score", 0) > 0 or any(k in lower_txt for k in ["call", "feedback", "pvr", "volunteer", "dinner", "match"]):
+            return None
+
+        gr_score = getattr(vector, "greeting_score", 0)
+        is_greeting = gr_score > 0 or vector.contains_greeting or vector.contains_thank_you
         if not is_greeting and text_content:
-            lower_txt = str(text_content).lower()
             if any(kw in lower_txt for kw in GREETING_KEYWORDS):
                 is_greeting = True
 
         if is_greeting:
+            lower_txt = text_content.lower()
+            is_forward_greeting = vector.is_forwarded or getattr(vector, "forward_probability", 0) > 0.5 or any(k in lower_txt for k in ["forwarding because", "forwarded", "share blessings", "share with everyone"])
+            action = "mute" if is_forward_greeting else "digest"
             return RuleResult(
                 message_id=vector.message_id,
                 resolved=True,
-                action="digest",
+                action=action,
                 message_type="greeting",
-                reason="Casual greeting or pleasantry routed to digest.",
-                confidence=0.90,
+                reason=f"Casual greeting or pleasantry routed to {action}.",
+                confidence=0.88,
                 triggered_rule=self.name,
                 priority=str(self.priority),
                 requires_ai=False,

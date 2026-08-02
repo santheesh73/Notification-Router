@@ -37,8 +37,8 @@ class SafetyFeatureExtractor(BaseFeatureExtractor):
         lottery_keywords = ["lottery", "jackpot", "won $", "won ₹", "draw winner", "lucky spin"]
         contains_lottery = any(k in text_lower for k in lottery_keywords)
 
-        crypto_keywords = ["bitcoin", "crypto", "usdt", "binance", "airdrop", "solana", "eth", "wallet address"]
-        contains_crypto = any(k in text_lower for k in crypto_keywords)
+        crypto_keywords = [r"\bbitcoin\b", r"\bcrypto\b", r"\busdt\b", r"\bbinance\b", r"\bairdrop\b", r"\bsolana\b", r"\beth\b", r"\bwallet address\b"]
+        contains_crypto = any(bool(re.search(pat, text_lower)) for pat in crypto_keywords)
 
         investment_keywords = ["guaranteed return", "100% profit", "investment scheme", "double your money", "forex trading", "high yield"]
         contains_investment = any(k in text_lower for k in investment_keywords)

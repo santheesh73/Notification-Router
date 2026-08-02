@@ -2,30 +2,33 @@
   "rule_optimization": {
     "total_rules_evaluated": 15,
     "active_rules": [
-      "OfficeRule",
-      "PaymentRule",
-      "ScamRule",
+      "UrgentRule",
+      "EventRule",
       "BusinessRule",
-      "FamilyRule",
+      "PersonalRule",
+      "PromotionRule",
       "GreetingRule",
       "DuplicateRule",
-      "PersonalRule",
-      "EventRule"
+      "ScamRule",
+      "FamilyRule",
+      "SpamRule",
+      "UnknownRule"
     ],
     "rule_trigger_counts": {
-      "OfficeRule": 9,
-      "PaymentRule": 2,
-      "ScamRule": 7,
-      "BusinessRule": 1,
-      "FamilyRule": 3,
-      "GreetingRule": 1,
-      "DuplicateRule": 2,
+      "UrgentRule": 4,
+      "EventRule": 4,
+      "BusinessRule": 3,
       "PersonalRule": 3,
-      "EventRule": 1
+      "PromotionRule": 6,
+      "GreetingRule": 2,
+      "DuplicateRule": 1,
+      "ScamRule": 4,
+      "FamilyRule": 1,
+      "SpamRule": 1,
+      "UnknownRule": 1
     },
     "recommendations": [
       "Keep ScamRule at Priority.CRITICAL (Priority 1) to guarantee zero false negatives.",
-      "Maintain PaymentRule Priority.HIGH (Priority 2) for verified business transactions.",
       "Maintain 15-rule registry ordering: CRITICAL -> HIGH -> MEDIUM -> LOW."
     ]
   },
@@ -50,5 +53,5 @@
     "status": "optimized",
     "context_compression": "active"
   },
-  "timestamp": "2026-08-02T02:06:50.607557"
+  "timestamp": "2026-08-02T07:08:13.794345"
 }

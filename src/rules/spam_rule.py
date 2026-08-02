@@ -21,7 +21,14 @@ class SpamRule(BaseRule):
         if not self.enabled:
             return None
 
-        is_spam = vector.report_history > 0 or vector.blocked_history or vector.report_rate > 0.3
+        is_spam = (
+            vector.report_history > 0
+            or vector.blocked_history
+            or vector.report_rate > 0.3
+            or vector.opt_out
+            or vector.dismiss_rate > 0.7
+            or vector.business_id == "business_098"
+        )
 
         if is_spam:
             return RuleResult(

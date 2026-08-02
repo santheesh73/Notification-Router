@@ -1,0 +1,11 @@
+message_type,total_true_instances,correct_predictions,accuracy_pct
+business_update,3,3,100.0
+event,4,4,100.0
+forward,1,1,100.0
+greeting,2,2,100.0
+personal,4,4,100.0
+promotion,6,6,100.0
+scam,4,4,100.0
+spam,1,1,100.0
+unknown,1,1,100.0
+urgent,4,4,100.0

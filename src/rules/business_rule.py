@@ -37,21 +37,29 @@ class BusinessRule(BaseRule):
         if not self.enabled:
             return None
 
+        text_content = str(getattr(vector, "message_text", "") or "")
+        lower_txt = text_content.lower()
+
+        is_biz_salutation = any(k in lower_txt for k in ["hi customer", "dear customer", "team amazon", "pvr cinemas", "safety advisory"])
+        is_order_delivery = any(kw in lower_txt for kw in ["order ending", "order packed", "delivery attempt", "pickup today", "shipped", "delivered", "tracking", "local hub"])
+        is_operational_biz = is_biz_salutation or any(kw in lower_txt for kw in ["feedback", "invoice", "receipt"])
+
+        # Phase 7 Restriction: Do NOT classify events, promotions, greetings, or personal as business_update unless formal business salutation/order exists
+        ev_score = getattr(vector, "event_score", 0)
+        promo_score = getattr(vector, "promotion_score", 0)
+
+        if not is_biz_salutation and not is_order_delivery and (ev_score > 0 or promo_score > 0):
+            return None
+
         is_bus = (
-            vector.business
-            or vector.trusted_business
-            or vector.orders > 0
-            or vector.bookings > 0
+            vector.trusted_business
+            or vector.verified
+            or is_order_delivery
+            or is_operational_biz
         )
 
-        text_content = getattr(vector, "message_text", "") or ""
-        if not is_bus and text_content:
-            lower_txt = str(text_content).lower()
-            if any(kw in lower_txt for kw in BUSINESS_KEYWORDS):
-                is_bus = True
-
         if is_bus:
-            action = "notify" if (vector.orders > 0 or vector.contains_deadline or vector.contains_time or "shipped" in text_content.lower() or "delivered" in text_content.lower()) else "digest"
+            action = "notify" if (is_order_delivery or "order ending" in lower_txt or "packed" in lower_txt) else "digest"
 
             # Build contextual reason
             if vector.trusted_business or vector.verified:

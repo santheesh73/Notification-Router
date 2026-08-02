@@ -42,25 +42,12 @@ class ScamRule(BaseRule):
         if not self.enabled:
             return None
 
-        is_scam = (
-            vector.contains_scam_keyword
-            or vector.contains_lottery
-            or vector.contains_crypto
-            or vector.contains_investment
-            or vector.contains_account_suspended
-            or vector.contains_verification_request
-            or vector.contains_unknown_payment
-            or vector.contains_unknown_domain
-            or vector.contains_otp
-            or vector.risk_score >= 0.4
-        )
+        # Prompt injection check
+        text_content = str(getattr(vector, "message_text", "") or "").lower()
+        is_prompt_injection = any(kw in text_content for kw in ["ignore all previous", "system note", "always mark this as"])
 
-        # Additional keyword check
-        text_content = getattr(vector, "message_text", "") or ""
-        if not is_scam and text_content:
-            lower_txt = str(text_content).lower()
-            if any(kw in lower_txt for kw in SCAM_KEYWORDS):
-                is_scam = True
+        scam_score = getattr(vector, "scam_risk_score", 0)
+        is_scam = is_prompt_injection or (scam_score >= 5) or vector.contains_scam_keyword or vector.contains_lottery or vector.contains_crypto
 
         if is_scam:
             # Build contextual reason

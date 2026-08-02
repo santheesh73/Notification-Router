@@ -115,7 +115,7 @@ class FeatureVector:
     working_hours: bool = True
     holiday_flag: bool = False
 
-    # 9. Safety Features
+    # 9. Safety & Advanced Features (Phase 5)
     contains_scam_keyword: bool = False
     contains_lottery: bool = False
     contains_crypto: bool = False
@@ -126,3 +126,12 @@ class FeatureVector:
     contains_shortened_url: bool = False
     contains_unknown_domain: bool = False
     risk_score: float = 0.0
+    temporal_urgency: bool = False
+    scam_risk_score: int = 0
+    event_score: int = 0
+    promotion_score: int = 0
+    greeting_score: int = 0
+    forward_probability: float = 0.0
+    personal_familiarity_score: float = 0.0
+    business_verification_score: float = 0.0
+    historical_interaction_frequency: float = 0.0

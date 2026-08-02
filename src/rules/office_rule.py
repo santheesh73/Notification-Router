@@ -30,7 +30,7 @@ class OfficeRule(BaseRule):
     """Routes messages from official work groups, managers, and team leads (Priority: HIGH)."""
 
     def __init__(self) -> None:
-        super().__init__(name="OfficeRule", priority=RulePriority.HIGH)
+        super().__init__(name="OfficeRule", priority=RulePriority.LOW)
 
     def evaluate(
         self,

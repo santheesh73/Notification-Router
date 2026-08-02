@@ -19,6 +19,7 @@ from src.rules.rule_result import RuleResult
 from src.rules.scam_rule import ScamRule
 from src.rules.spam_rule import SpamRule
 from src.rules.urgent_rule import UrgentRule
+from src.rules.unknown_rule import UnknownRule
 from src.utils.logger import logger
 
 
@@ -37,23 +38,24 @@ class NotificationRuleEngine:
             self._register_default_rules()
 
     def _register_default_rules(self) -> None:
-        """Register all 15 deterministic rules into registry."""
+        """Register all 16 deterministic rules into registry."""
         default_rules = [
-            ScamRule(),
             UrgentRule(),
-            SpamRule(),
+            ScamRule(),
             PaymentRule(),
+            EventRule(),
+            PromotionRule(),
+            GreetingRule(),
+            SpamRule(),
             MutedGroupRule(),
             DuplicateRule(),
             FamilyRule(),
             OfficeRule(),
             BusinessRule(),
             ReminderRule(),
-            EventRule(),
             PersonalRule(),
             ForwardRule(),
-            PromotionRule(),
-            GreetingRule(),
+            UnknownRule(),
         ]
         for rule in default_rules:
             self.registry.register_rule(rule)

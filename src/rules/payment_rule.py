@@ -21,13 +21,21 @@ class PaymentRule(BaseRule):
         if not self.enabled:
             return None
 
+        text_lower = str(getattr(vector, "message_text", "")).lower()
+
+        # Exclude safety advisories
+        if "never ask for" in text_lower or "safety advisory" in text_lower:
+            return None
+
+        has_actual_payment = any(k in text_lower for k in ["payment", "debited", "credited", "paid", "upi", "invoice", "receipt", "transfer", "transaction"])
+
         is_payment = (
             vector.contains_payment
             or vector.contains_invoice
-            or vector.contains_bank
             or vector.contains_upi
+            or (vector.contains_bank and (vector.contains_money or has_actual_payment))
             or vector.payments > 0
-        )
+        ) and has_actual_payment
 
         if is_payment:
             return RuleResult(

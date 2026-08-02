@@ -23,24 +23,20 @@ class DuplicateRule(BaseRule):
 
         # Check for high repeat frequency or duplicate message indicators
         if vector.forwarded_count >= 5 and not vector.trusted_sender:
-            text_content = getattr(vector, "message_text", "") or ""
+            text_content = str(getattr(vector, "message_text", "") or "")
             lower_txt = text_content.lower()
-
-            # Determine if it's spam (promotional) or forward (chain message)
             is_spam = any(kw in lower_txt for kw in ["offer", "discount", "deal", "sale", "buy", "price", "plot", "token"])
 
-            if is_spam:
-                msg_type = "spam"
+            # Determine message type for muted duplicate
+            if any(kw in lower_txt for kw in ["good morning", "good evening", "stay positive", "keep smiling", "blessings"]):
+                msg_type = "greeting"
+                reason = "Forwarded greeting chain message muted to reduce notification clutter."
+            elif is_spam or any(kw in lower_txt for kw in ["photos for"]):
+                msg_type = "promotion"
                 reason = "Repeated promotional broadcast message previously dismissed by users."
-            elif "forward" in lower_txt or "share" in lower_txt or "bless" in lower_txt or "send this" in lower_txt:
-                msg_type = "forward"
-                reason = "Forwarded chain message detected with high forward count."
-            elif vector.forwarded_count >= 7:
-                msg_type = "spam"
-                reason = "Mass-forwarded broadcast with excessive distribution count."
             else:
                 msg_type = "forward"
-                reason = "Duplicate broadcast content forwarded across multiple groups."
+                reason = "Forwarded chain message detected with high distribution count."
 
             return RuleResult(
                 message_id=vector.message_id,

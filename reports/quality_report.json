@@ -1,40 +1,43 @@
 {
   "coverage": "100.0%",
-  "rule_coverage": "96.7%",
-  "llm_coverage": "3.3%",
+  "rule_coverage": "100.0%",
+  "llm_coverage": "0.0%",
   "failures": 0,
   "warnings": 0,
   "action_distribution": {
-    "digest": 12,
-    "notify": 8,
+    "notify": 9,
+    "digest": 11,
     "mute": 10
   },
   "message_type_distribution": {
-    "business_update": 10,
-    "payment": 2,
-    "scam": 7,
-    "personal": 6,
-    "greeting": 1,
-    "forward": 2,
+    "urgent": 4,
+    "event": 4,
+    "business_update": 3,
+    "personal": 4,
+    "promotion": 6,
+    "greeting": 2,
+    "forward": 1,
+    "scam": 4,
     "spam": 1,
-    "event": 1
+    "unknown": 1
   },
   "decision_source_distribution": {
-    "RuleEngine:OfficeRule": 9,
-    "RuleEngine:PaymentRule": 2,
-    "RuleEngine:ScamRule": 7,
-    "RuleEngine:BusinessRule": 1,
-    "RuleEngine:FamilyRule": 3,
-    "RuleEngine:GreetingRule": 1,
-    "RuleEngine:DuplicateRule": 2,
+    "RuleEngine:UrgentRule": 4,
+    "RuleEngine:EventRule": 4,
+    "RuleEngine:BusinessRule": 3,
     "RuleEngine:PersonalRule": 3,
-    "LLM:TextClassifier": 1,
-    "RuleEngine:EventRule": 1
+    "RuleEngine:PromotionRule": 6,
+    "RuleEngine:GreetingRule": 2,
+    "RuleEngine:DuplicateRule": 1,
+    "RuleEngine:ScamRule": 4,
+    "RuleEngine:FamilyRule": 1,
+    "RuleEngine:SpamRule": 1,
+    "RuleEngine:UnknownRule": 1
   },
   "confidence_stats": {
-    "average": 0.7727,
-    "min": 0.565,
+    "average": 0.7383,
+    "min": 0.4995,
     "max": 0.985
   },
-  "timestamp": "2026-08-02T02:06:50.604243"
+  "timestamp": "2026-08-02T07:08:13.791180"
 }

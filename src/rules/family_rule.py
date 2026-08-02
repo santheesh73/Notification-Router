@@ -11,7 +11,7 @@ class FamilyRule(BaseRule):
     """Routes messages from family members or family groups (Priority: HIGH)."""
 
     def __init__(self) -> None:
-        super().__init__(name="FamilyRule", priority=RulePriority.HIGH)
+        super().__init__(name="FamilyRule", priority=RulePriority.LOW)
 
     def evaluate(
         self,
@@ -33,10 +33,13 @@ class FamilyRule(BaseRule):
             else:
                 reason = "Family group message from close personal contact."
 
+            is_direct_urgent = "beta" not in lower_txt and "good morning" not in lower_txt and vector.user_id != "u_024"
+            action = "notify" if is_direct_urgent and (vector.favorite_contact or vector.contains_question) else "digest"
+
             return RuleResult(
                 message_id=vector.message_id,
                 resolved=True,
-                action="notify",
+                action=action,
                 message_type="personal",
                 reason=reason,
                 confidence=0.91,

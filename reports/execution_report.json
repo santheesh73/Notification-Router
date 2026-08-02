@@ -1,13 +1,13 @@
 {
   "total_processed": 30,
   "messages_failed": 0,
-  "rule_decisions": 29,
-  "ai_decisions": 1,
-  "rule_coverage_pct": 96.7,
-  "llm_coverage_pct": 3.3,
-  "average_confidence": 0.7727,
-  "processing_time": 1.0111,
-  "messages_per_second": 29.67,
+  "rule_decisions": 30,
+  "ai_decisions": 0,
+  "rule_coverage_pct": 100.0,
+  "llm_coverage_pct": 0.0,
+  "average_confidence": 0.7383,
+  "processing_time": 1.0318,
+  "messages_per_second": 29.08,
   "output_csv_valid": true,
-  "timestamp": "2026-08-02T02:06:50.602645"
+  "timestamp": "2026-08-02T07:08:13.789912"
 }

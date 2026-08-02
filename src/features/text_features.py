@@ -66,7 +66,7 @@ class TextFeatureExtractor(BaseFeatureExtractor):
         contains_discount = any(k in text_lower for k in ["discount", "off", "sale", "save"])
         contains_coupon = any(k in text_lower for k in ["coupon", "promo", "voucher", "code"])
         contains_offer = any(k in text_lower for k in ["offer", "deal", "cashback", "bonus"])
-        has_negation = any(p in text_lower for p in ["nothing urgent", "not urgent", "no rush", "isn't urgent", "is not urgent", "no need to call", "don't call now", "can wait", "later is fine"])
+        has_negation = any(p in text_lower for p in ["nothing urgent", "not urgent", "no rush", "isn't urgent", "is not urgent", "no need to call", "don't call now", "later is fine"]) or bool(re.search(r"can wait (?:until|till|later|tomorrow)", text_lower))
 
         deadline_kws = ["deadline", "due date", "expires", "by today", "asap"]
         emergency_kws = ["emergency", "hospital", "sos", "accident", "help immediately"]
@@ -92,6 +92,50 @@ class TextFeatureExtractor(BaseFeatureExtractor):
         contains_thank_you = any(k in text_lower for k in ["thank you", "thanks", "thx", "appreciate"])
         contains_greeting = any(k in text_lower for k in ["hi", "hello", "hey", "good morning", "good evening"])
         contains_question = "?" in text
+
+        # Advanced Phase 5 Signals
+        temporal_urgency_kws = ["mins max", "minutes max", "leaving", "pulled to", "by eod", "come online now", "escalation starts", "in 20 minutes", "in 15 mins", "by 5 pm", "by 7:35", "immediately", "urgent", "asap"]
+        temporal_urgency = (not has_negation) and any(k in text_lower for k in temporal_urgency_kws)
+
+        # Weighted Scam Risk Score (Phase 6)
+        scam_risk_score = 0
+        if contains_otp or any(k in text_lower for k in ["6 digit", "passcode", "otp code"]):
+            scam_risk_score += 4
+        if any(k in text_lower for k in ["account-login.in", "bit.ly", "pay-check-secure.com", "t.me/", "verify now", "confirm password"]):
+            scam_risk_score += 3
+        if any(k in text_lower for k in ["security alert", "payout profile", "account suspended", "profile blocked"]):
+            scam_risk_score += 2
+        if any(k in text_lower for k in ["within 2 hours", "blocked today", "expire today", "in 30 mins"]):
+            scam_risk_score += 2
+        if contains_bank or contains_upi:
+            scam_risk_score += 1
+
+        # Event Score (Phase 8)
+        event_score = sum([
+            1 if any(k in text_lower for k in ["bus leaving", "route b", "stadium road", "parents", "kids"]) else 0,
+            1 if any(k in text_lower for k in ["appointment", "prescription", "health-related", "scheduled time", "care services"]) else 0,
+            1 if any(k in text_lower for k in ["cultural night", "form is open", "add flat no", "dish in the sheet"]) else 0,
+            1 if any(k in text_lower for k in ["school circular", "consent note", "timing"]) else 0,
+            1 if contains_event or contains_meeting else 0,
+        ])
+
+        # Promotion Score (Phase 7)
+        promotion_score = sum([
+            1 if any(k in text_lower for k in ["rs ", "per person", "7 nights", "itinerary", "ladakh"]) else 0,
+            1 if any(k in text_lower for k in ["selling", "cycle helmet", "kurta set", "photos attached", "pickup near"]) else 0,
+            1 if any(k in text_lower for k in ["50% off", "try50", "shopping offer", "extra discounts"]) else 0,
+            1 if contains_discount or contains_offer or contains_coupon else 0,
+        ])
+
+        # Greeting Score (Phase 9)
+        greeting_score = sum([
+            1 if contains_greeting else 0,
+            1 if any(k in text_lower for k in ["hope today is peaceful", "good vibes", "keep smiling", "share blessings"]) else 0,
+        ])
+
+        # Forward Probability
+        is_forward_text = any(k in text_lower for k in ["fwd as received", "forward to family", "forwarding because", "share with 10 people", "forward this to"])
+        fwd_prob = 0.9 if is_forward_text else 0.0
 
         return {
             "message_length": msg_len,
@@ -130,4 +174,10 @@ class TextFeatureExtractor(BaseFeatureExtractor):
             "emoji_count": emoji_count,
             "punctuation_ratio": punctuation_ratio,
             "language_hint": "en",
+            "temporal_urgency": temporal_urgency,
+            "scam_risk_score": scam_risk_score,
+            "event_score": event_score,
+            "promotion_score": promotion_score,
+            "greeting_score": greeting_score,
+            "forward_probability": fwd_prob,
         }

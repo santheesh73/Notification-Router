@@ -1,11 +1,11 @@
 {
   "total_messages": 30,
-  "total_execution_time_seconds": 1.0111,
-  "messages_per_second": 29.67,
-  "average_latency_ms": 33.7,
-  "peak_memory_mb": 1.5633,
-  "average_confidence": 0.7727,
-  "rule_resolution_rate": 96.7,
-  "llm_resolution_rate": 3.3,
-  "timestamp": "2026-08-02T02:06:50.603584"
+  "total_execution_time_seconds": 1.0318,
+  "messages_per_second": 29.08,
+  "average_latency_ms": 34.39,
+  "peak_memory_mb": 1.5684,
+  "average_confidence": 0.7383,
+  "rule_resolution_rate": 100.0,
+  "llm_resolution_rate": 0.0,
+  "timestamp": "2026-08-02T07:08:13.790670"
 }

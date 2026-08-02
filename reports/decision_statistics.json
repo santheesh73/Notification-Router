@@ -1,0 +1,70 @@
+{
+  "total_messages_evaluated": 30,
+  "action_accuracy_pct": 100.0,
+  "message_type_accuracy_pct": 100.0,
+  "total_errors": 0,
+  "action_error_count": 0,
+  "message_type_error_count": 0,
+  "per_class_accuracy": [
+    {
+      "message_type": "business_update",
+      "total_true_instances": 3,
+      "correct_predictions": 3,
+      "accuracy_pct": 100.0
+    },
+    {
+      "message_type": "event",
+      "total_true_instances": 4,
+      "correct_predictions": 4,
+      "accuracy_pct": 100.0
+    },
+    {
+      "message_type": "forward",
+      "total_true_instances": 1,
+      "correct_predictions": 1,
+      "accuracy_pct": 100.0
+    },
+    {
+      "message_type": "greeting",
+      "total_true_instances": 2,
+      "correct_predictions": 2,
+      "accuracy_pct": 100.0
+    },
+    {
+      "message_type": "personal",
+      "total_true_instances": 4,
+      "correct_predictions": 4,
+      "accuracy_pct": 100.0
+    },
+    {
+      "message_type": "promotion",
+      "total_true_instances": 6,
+      "correct_predictions": 6,
+      "accuracy_pct": 100.0
+    },
+    {
+      "message_type": "scam",
+      "total_true_instances": 4,
+      "correct_predictions": 4,
+      "accuracy_pct": 100.0
+    },
+    {
+      "message_type": "spam",
+      "total_true_instances": 1,
+      "correct_predictions": 1,
+      "accuracy_pct": 100.0
+    },
+    {
+      "message_type": "unknown",
+      "total_true_instances": 1,
+      "correct_predictions": 1,
+      "accuracy_pct": 100.0
+    },
+    {
+      "message_type": "urgent",
+      "total_true_instances": 4,
+      "correct_predictions": 4,
+      "accuracy_pct": 100.0
+    }
+  ]
+}

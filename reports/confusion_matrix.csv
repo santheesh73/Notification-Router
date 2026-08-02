@@ -1,0 +1,18 @@
+=== ACTION CONFUSION MATRIX ===
+True Action,digest,mute,notify
+digest,11,0,0
+mute,0,10,0
+notify,0,0,9
+
+=== MESSAGE TYPE CONFUSION MATRIX ===
+True Type,business_update,event,forward,greeting,personal,promotion,scam,spam,unknown,urgent
+business_update,3,0,0,0,0,0,0,0,0,0
+event,0,4,0,0,0,0,0,0,0,0
+forward,0,0,1,0,0,0,0,0,0,0
+greeting,0,0,0,2,0,0,0,0,0,0
+personal,0,0,0,0,4,0,0,0,0,0
+promotion,0,0,0,0,0,6,0,0,0,0
+scam,0,0,0,0,0,0,4,0,0,0
+spam,0,0,0,0,0,0,0,1,0,0
+unknown,0,0,0,0,0,0,0,0,1,0
+urgent,0,0,0,0,0,0,0,0,0,4
