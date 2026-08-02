@@ -26,14 +26,14 @@ class PersonalRule(BaseRule):
 
         # Exclude business messages, order delivery, unknown sender registrations, or unknown/new senders
         is_order_deliv = any(k in lower_txt for k in ["order ending", "order packed", "delivery attempt", "local hub", "shipped"])
-        if vector.business_id or vector.trusted_business or is_order_deliv or "volunteer sheet" in lower_txt or vector.new_sender or vector.sender_id in ["USR_999", "USR_UNKNOWN"]:
+        if vector.business_id or vector.trusted_business or is_order_deliv or "volunteer sheet" in lower_txt or vector.sender_id in ["USR_999", "USR_UNKNOWN"]:
             return None
 
         is_personal_chat = (
             vector.personal
             or vector.conversation_type == "personal"
             or vector.favorite_contact
-            or any(k in lower_txt for k in ["call", "match tonight", "reached home", "had dinner", "don't call now", "talk tomorrow"])
+            or any(k in lower_txt for k in ["call", "match tonight", "reached home", "had dinner", "don't call now", "talk tomorrow", "draft", "when free", "take a look", "checking in", "good week", "no rush"])
         )
 
         if is_personal_chat:
@@ -41,8 +41,8 @@ class PersonalRule(BaseRule):
                 vector.favorite_contact
                 or vector.contains_question
                 or "@u_" in lower_txt
-                or any(k in lower_txt for k in ["can you call", "call me", "pls call", "when you get 5 mins"])
-            ) and not any(k in lower_txt for k in ["don't call now", "nothing urgent", "no need to reply", "no pressure"])
+                or any(k in lower_txt for k in ["can you call", "call me", "pls call", "when you get 5 mins", "quick decision", "are you free", "reach out"])
+            ) and not any(k in lower_txt for k in ["don't call now", "nothing urgent", "no need to reply", "no pressure", "checking in", "good week", "no rush"])
 
             action = "notify" if is_direct_request else "digest"
             return RuleResult(

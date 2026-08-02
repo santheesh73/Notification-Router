@@ -40,6 +40,9 @@ class OfficeRule(BaseRule):
         if not self.enabled:
             return None
 
+        if vector.conversation_type == "personal" or vector.personal:
+            return None
+
         is_office_or_group = (
             vector.group_type in ["Office", "School", "Apartment", "Sports"]
             or vector.group

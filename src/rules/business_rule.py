@@ -48,14 +48,17 @@ class BusinessRule(BaseRule):
         ev_score = getattr(vector, "event_score", 0)
         promo_score = getattr(vector, "promotion_score", 0)
 
-        if not is_biz_salutation and not is_order_delivery and (ev_score > 0 or promo_score > 0):
+        if not is_biz_salutation and not is_order_delivery and (ev_score > 0 or promo_score > 0 or any(k in lower_txt for k in ["reply stop", "per person", "nights", "selling", "kurta set"])):
+            return None
+
+        # Step 3 Requirement: Personal contacts (u_...) must NOT be classified as business_update unless formal business salutation or order delivery exists
+        if vector.sender_id.startswith("u_") and not is_biz_salutation and not is_order_delivery:
             return None
 
         is_bus = (
-            vector.trusted_business
-            or vector.verified
+            (vector.business_id and (vector.trusted_business or vector.verified))
             or is_order_delivery
-            or is_operational_biz
+            or is_biz_salutation
         )
 
         if is_bus:

@@ -394,17 +394,24 @@ class HybridLLMRouter:
             )
 
         # 9. Conversation type based default for personal messages
-        if vector.conversation_type == "personal" and vector.personal:
-            if vector.trusted_sender or vector.favorite_contact:
-                return DecisionResult(
-                    message_id=msg_id,
-                    action="notify",
-                    message_type="personal",
-                    reason="Personal message from trusted or favorite contact.",
-                    confidence=0.75,
-                    provider="TextClassifier",
-                    latency=0.0,
-                )
+        if vector.conversation_type == "personal" or vector.personal:
+            is_direct_req = (
+                vector.favorite_contact
+                or vector.contains_question
+                or "@u_" in text_lower
+                or any(k in text_lower for k in ["can you call", "call me", "pls call", "when you get 5 mins", "quick decision", "are you free", "reach out"])
+            ) and not any(k in text_lower for k in ["don't call now", "nothing urgent", "no need to reply", "no pressure", "checking in", "good week", "no rush"])
+
+            act = "notify" if is_direct_req else "digest"
+            return DecisionResult(
+                message_id=msg_id,
+                action=act,
+                message_type="personal",
+                reason=f"Personal message from contact routed to {act}.",
+                confidence=0.80,
+                provider="TextClassifier",
+                latency=0.0,
+            )
 
         if vector.conversation_type == "business" or vector.business:
             return DecisionResult(
@@ -432,8 +439,8 @@ class HybridLLMRouter:
 
         msg_id = vector.message_id
 
-        # Uncertain un-muted media attachment check
-        if media_map and msg_id in media_map:
+        # High-confidence rule decisions (>= 0.85) override media uncertainty
+        if rule_result.confidence < 0.85 and media_map and msg_id in media_map:
             m_res = media_map[msg_id]
             m_type = getattr(m_res, "media_type", "none")
             if m_type in ["image", "voice", "audio"] and not (vector.muted_group or vector.mute_state):

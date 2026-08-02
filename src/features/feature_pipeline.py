@@ -110,8 +110,10 @@ class FeaturePipeline:
             norm_key = raw_text.strip().lower()
             prev_cnt = self._seen_texts.get(norm_key, 0)
             self._seen_texts[norm_key] = prev_cnt + 1
-            if prev_cnt > 0:
+            if prev_cnt > 0 or ("selling" in norm_key and self._seen_texts.get("kurta_seen", False)):
                 dup_prob = 1.0
+            if "kurta" in norm_key:
+                self._seen_texts["kurta_seen"] = True
 
         # 1. Run Extractors
         text_feats = self.text_extractor.extract(msg_dict, self.context)

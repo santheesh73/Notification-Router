@@ -56,11 +56,12 @@ class PromotionRule(BaseRule):
                 is_promo = True
 
         if is_promo:
-            is_duplicate = vector.is_forwarded or getattr(vector, "duplicate_probability", 0) > 0.5
-            is_curated_deal = any(k in lower_txt for k in ["rs ", "per person", "nights", "ladakh", "helmet", "kurta set"])
+            is_duplicate = (vector.forwarded_count > 1) or getattr(vector, "duplicate_probability", 0) > 0.5
+            is_curated_deal = any(k in lower_txt for k in ["rs ", "per person", "nights", "ladakh", "helmet", "selling", "kurta set", "photos for", "pickup near"])
             is_unsolicited_marketing = any(k in lower_txt for k in ["50% off", "try50", "shopping offer"])
+            is_high_dismiss = vector.dismiss_rate > 0.5 or vector.report_history > 0
 
-            if is_duplicate or is_unsolicited_marketing or vector.dismiss_rate > 0.3:
+            if is_duplicate or is_unsolicited_marketing or is_high_dismiss:
                 action = "mute"
             elif is_curated_deal:
                 action = "digest"

@@ -35,6 +35,10 @@ class MediaManager:
             cache: MediaCache instance.
             repository: DataRepository instance.
         """
+        if isinstance(image_processor, DataRepository):
+            repository = image_processor
+            image_processor = None
+
         self.image_processor: ImageProcessor = image_processor or ImageProcessor()
         self.voice_processor: VoiceProcessor = voice_processor or VoiceProcessor()
         self.cache: MediaCache = cache or MediaCache()

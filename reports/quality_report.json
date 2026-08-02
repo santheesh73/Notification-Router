@@ -1,23 +1,23 @@
 {
   "coverage": "100.0%",
-  "rule_coverage": "96.7%",
-  "llm_coverage": "3.3%",
+  "rule_coverage": "100.0%",
+  "llm_coverage": "0.0%",
   "failures": 0,
   "warnings": 0,
   "action_distribution": {
     "notify": 9,
-    "digest": 8,
-    "mute": 13
+    "mute": 13,
+    "digest": 8
   },
   "message_type_distribution": {
     "urgent": 4,
     "event": 4,
-    "business_update": 5,
+    "business_update": 3,
+    "personal": 4,
     "promotion": 6,
     "greeting": 2,
     "forward": 1,
     "scam": 4,
-    "personal": 2,
     "spam": 1,
     "unknown": 1
   },
@@ -25,20 +25,19 @@
     "RuleEngine:UrgentRule": 4,
     "RuleEngine:EventRule": 4,
     "RuleEngine:BusinessRule": 3,
-    "RuleEngine:OfficeRule": 2,
+    "RuleEngine:PersonalRule": 3,
     "RuleEngine:PromotionRule": 6,
     "RuleEngine:GreetingRule": 2,
     "RuleEngine:DuplicateRule": 1,
     "RuleEngine:ScamRule": 4,
     "RuleEngine:FamilyRule": 1,
     "RuleEngine:SpamRule": 1,
-    "RuleEngine:UnknownRule": 1,
-    "LLM:TextClassifier": 1
+    "RuleEngine:UnknownRule": 1
   },
   "confidence_stats": {
-    "average": 0.7333,
+    "average": 0.7413,
     "min": 0.4995,
     "max": 0.985
   },
-  "timestamp": "2026-08-02T07:30:26.629839"
+  "timestamp": "2026-08-02T07:54:15.250237"
 }

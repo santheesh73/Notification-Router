@@ -49,11 +49,11 @@ class NotificationRuleEngine:
             SpamRule(),
             MutedGroupRule(),
             DuplicateRule(),
+            PersonalRule(),
             FamilyRule(),
             OfficeRule(),
             BusinessRule(),
             ReminderRule(),
-            PersonalRule(),
             ForwardRule(),
             UnknownRule(),
         ]

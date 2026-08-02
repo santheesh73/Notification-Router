@@ -172,7 +172,7 @@ class ExecutionPipeline:
             # Step 4: Category-Specific Threshold Check & Unresolved Fallthrough
             llm_res: DecisionResult
 
-            is_rule_resolved = self.hybrid_router._is_rule_resolved(vector, rule_res)
+            is_rule_resolved = rule_res and rule_res.resolved and not rule_res.requires_ai
 
             if not is_rule_resolved:
                 # Attempt text-based deterministic classification before calling LLM
