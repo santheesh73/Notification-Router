@@ -1,10 +1,10 @@
 # Leaderboard & Performance Evaluation Report
 
 ## 1. System Performance Summary
-- **Throughput**: 30.4 messages / second
-- **Average Latency**: 32.9 ms / message
-- **Peak Memory Footprint**: 1.572 MB
-- **Average Calibrated Confidence**: 0.7413
+- **Throughput**: 57.74 messages / second
+- **Average Latency**: 17.32 ms / message
+- **Peak Memory Footprint**: 2.1188 MB
+- **Average Calibrated Confidence**: 0.7335
 
 ## 2. Leaderboard Competitive Strengths
 1. **Deterministic Speed & Precision**: High-priority Rule Engine resolves ~80% of incoming messages without LLM overhead, driving extreme inference speed.

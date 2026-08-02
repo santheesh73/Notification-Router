@@ -1,0 +1,14 @@
+audio_name,transcript,speech_confidence,processing_time_ms,word_count,classification,message_id,action,message_type,reason
+vn_001.mp3,Audio message transcript recorded successfully.,0.9,0.55,5,Action Request,msg_001,notify,urgent,Time-sensitive alert from sender u_043 in group group_002 requiring immediate user attention.
+vn_002.mp3,Audio message transcript recorded successfully.,0.9,0.36,5,Action Request,msg_002,digest,event,Event schedule update from sender u_046 in group group_004 routed to digest.
+vn_003.mp3,Audio message transcript recorded successfully.,0.9,0.3,5,Action Request,msg_003,notify,business_update,Operational notification from business business_001 routed to notify.
+vn_004.mp3,Audio message transcript recorded successfully.,0.9,0.35,5,Action Request,msg_004,notify,event,Event schedule update from business business_004 routed to notify.
+vn_005.mp3,Audio message transcript recorded successfully.,0.9,0.32,5,Action Request,msg_005,mute,promotion,Marketing update from sender u_048 in group group_005 routed to summary mute.
+vn_006.mp3,Audio message transcript recorded successfully.,0.9,0.26,5,Action Request,msg_006,notify,payment,Financial transaction or payment alert from sender u_043 in group group_002.
+vn_007.mp3,Audio message transcript recorded successfully.,0.9,0.25,5,Action Request,msg_007,mute,promotion,Marketing update from sender u_043 in group group_010 routed to summary mute.
+vn_008.mp3,Audio message transcript recorded successfully.,0.9,0.22,5,Action Request,msg_008,digest,business_update,Operational notification from business business_091 routed to digest.
+vn_009.mp3,Audio message transcript recorded successfully.,0.9,0.48,5,Action Request,msg_009,digest,business_update,Operational notification from sender u_054 in group group_018 routed to digest.
+vn_012.mp3,Audio message transcript recorded successfully.,0.9,0.28,5,Action Request,msg_012,mute,promotion,Marketing update from sender u_051 in group group_016 routed to summary mute.
+vn_013.mp3,Audio message transcript recorded successfully.,0.9,0.23,5,Action Request,msg_013,notify,payment,Financial transaction or payment alert from sender u_048 in group group_012.
+vn_014.mp3,Audio message transcript recorded successfully.,0.9,0.32,5,Action Request,msg_014,mute,promotion,Marketing update from business business_094 routed to summary mute.
+vn_015.mp3,Audio message transcript recorded successfully.,0.9,0.22,5,Action Request,msg_015,digest,business_update,Operational notification from sender u_049 in group group_005 routed to digest.
