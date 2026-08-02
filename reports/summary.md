@@ -16,36 +16,36 @@ The AI-powered WhatsApp Message Notification Router is a modular, production-qua
 - **Phase 10: Submission Packaging, Evaluation & Verification** (`src/evaluation/`, `submission/`)
 
 ## 3. Performance & Benchmark Statistics
-- **Total Messages Processed**: 30
-- **Throughput**: 11.38 msg/s
-- **Average Latency**: 87.9 ms/msg
-- **Peak Memory Usage**: 2.7529 MB
-- **Rule Coverage**: 100.0%
-- **LLM Coverage**: 0.0%
-- **Average Calibrated Confidence**: 0.7413
+- **Total Messages Processed**: 110
+- **Throughput**: 30.27 msg/s
+- **Average Latency**: 33.04 ms/msg
+- **Peak Memory Usage**: 3.3634 MB
+- **Rule Coverage**: 97.3%
+- **LLM Coverage**: 2.7%
+- **Average Calibrated Confidence**: 0.7333
 - **CSV Schema Validation**: PASSED
 
 ## 4. Output Action Distribution
 ```json
 {
-  "notify": 9,
-  "mute": 13,
-  "digest": 8
+  "notify": 31,
+  "mute": 34,
+  "digest": 45
 }
 ```
 
 ## 5. Message Type Distribution
 ```json
 {
-  "urgent": 4,
-  "event": 4,
-  "business_update": 3,
-  "personal": 4,
-  "promotion": 6,
-  "greeting": 2,
-  "forward": 1,
-  "scam": 4,
-  "spam": 1,
-  "unknown": 1
+  "payment": 10,
+  "scam": 10,
+  "event": 23,
+  "urgent": 11,
+  "greeting": 11,
+  "promotion": 19,
+  "personal": 7,
+  "business_update": 15,
+  "spam": 3,
+  "forward": 1
 }
 ```

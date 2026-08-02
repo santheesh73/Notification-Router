@@ -50,7 +50,7 @@ msg_063,notify,urgent,Time-sensitive alert from sender u_049 in group group_014 
 msg_033,digest,event,Event schedule update from sender u_041 in group group_009 routed to digest.,0.715,message_0121;message_0122;message_0372
 msg_061,digest,greeting,Social greeting from sender u_051 in group group_001 routed to digest.,0.5589,message_0177;message_0194;message_0042
 msg_020,notify,urgent,Time-sensitive alert from sender u_049 in group group_005 requiring immediate user attention.,0.875,message_0095;message_0096;message_0025
-msg_017,digest,business_update,Operational notification from sender u_049 in group group_005 routed to digest.,0.645,message_0025;message_0090;message_0089
+msg_017,mute,promotion,Marketing update from sender u_049 in group group_005 routed to summary mute.,0.615,message_0025;message_0090;message_0089
 msg_058,mute,promotion,Marketing update from sender u_051 in group group_001 routed to summary mute.,0.615,message_0123;message_0241;message_0078
 msg_026,notify,business_update,Operational notification from business business_036 routed to notify.,0.675,message_0028;message_0032;message_0107
 msg_047,mute,promotion,Marketing update from sender u_043 in group group_011 routed to summary mute.,0.615,message_0150;message_0149;message_0139

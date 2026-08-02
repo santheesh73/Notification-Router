@@ -19,6 +19,8 @@ PROMO_KEYWORDS = {
     "sale",
     "razorpayx",
     "cashback",
+    "clearance",
+    "special price",
 }
 
 
@@ -87,27 +89,27 @@ class PromotionRule(BaseRule):
         return None
 
     def _calculate_promotion_utility_score(self, vector: FeatureVector, lower_txt: str) -> float:
-        """Compute weighted Promotion Utility Score in range [0.0, 1.0] (Steps 1, 2, 6)."""
-        base_score = 0.40
+        """Compute weighted Promotion Utility Score in range [0.0, 1.0] using generalized domain features."""
+        # Baseline score: 0.60 (legitimate non-spam promotion defaults to digest)
+        base_score = 0.60
 
-        # Positive Signals (Max +0.55)
+        # Positive Signals (Trust, Commerce & Interactivity)
         pos_signal = 0.0
         if vector.verified or vector.trusted_business:
-            pos_signal += 0.15
+            pos_signal += 0.10
         if vector.favorite_business:
             pos_signal += 0.10
         if vector.orders > 0 or vector.payments > 0 or vector.bookings > 0:
-            pos_signal += 0.15
+            pos_signal += 0.10
         if vector.reply_history > 0 or vector.interaction_count > 0 or getattr(vector, "user_participation", 0) > 0:
             pos_signal += 0.10
+        if vector.contains_coupon or vector.contains_discount:
+            pos_signal += 0.05
 
-        is_curated_deal = any(k in lower_txt for k in ["rs ", "per person", "nights", "ladakh", "helmet", "selling", "kurta set", "photos for", "pickup near", "deal", "discount", "package"])
-        if is_curated_deal:
-            pos_signal += 0.15
-
-        # Negative Penalties (Max -0.65)
+        # Negative Spam Penalties
         neg_penalty = 0.0
-        neg_penalty += vector.dismiss_rate * 0.25
+        if vector.dismiss_rate > 0.4:
+            neg_penalty += vector.dismiss_rate * 0.30
 
         if vector.report_history > 0 or getattr(vector, "report_rate", 0.0) > 0.0:
             neg_penalty += 0.30
@@ -115,14 +117,20 @@ class PromotionRule(BaseRule):
         if getattr(vector, "risk_score", 0.0) > 0.2:
             neg_penalty += getattr(vector, "risk_score", 0.0) * 0.30
 
-        is_duplicate = (vector.forwarded_count > 1) or getattr(vector, "duplicate_probability", 0) > 0.5
-        if is_duplicate:
-            neg_penalty += 0.35
+        if vector.forwarded_count > 2 or getattr(vector, "duplicate_probability", 0.0) > 0.5:
+            neg_penalty += 0.25
 
-        is_unsolicited = any(k in lower_txt for k in ["50% off", "try50", "shopping offer", "click here"])
-        if is_unsolicited:
+        # Multiple Spam Signals Penalty: Require multiple simultaneous spam signals to suppress to mute
+        spam_signal_count = (
+            (1 if vector.dismiss_rate > 0.4 else 0)
+            + (1 if vector.report_history > 0 or getattr(vector, "report_rate", 0.0) > 0.0 else 0)
+            + (1 if getattr(vector, "risk_score", 0.0) > 0.2 else 0)
+            + (1 if vector.forwarded_count > 2 or getattr(vector, "duplicate_probability", 0.0) > 0.5 else 0)
+        )
+        if spam_signal_count >= 2:
             neg_penalty += 0.25
 
         utility = base_score + pos_signal - neg_penalty
         return max(0.0, min(1.0, utility))
+
 

@@ -1,21 +1,21 @@
 image_name,ocr_text,ocr_confidence,processing_time_ms,word_count,classification,message_id,action,message_type,reason
-img_001.jpg,Visual document image attachment.,0.88,0.5,4,Document,msg_001,notify,urgent,Time-sensitive alert from sender u_043 in group group_002 requiring immediate user attention.
-img_002.jpg,Visual document image attachment.,0.88,0.49,4,Document,msg_002,digest,event,Event schedule update from sender u_046 in group group_004 routed to digest.
-img_003.jpg,Visual document image attachment.,0.88,0.4,4,Document,msg_003,notify,business_update,Operational notification from business business_001 routed to notify.
-img_004.jpg,Visual document image attachment.,0.88,0.46,4,Document,msg_004,notify,event,Event schedule update from business business_004 routed to notify.
-img_005.jpg,Visual document image attachment.,0.88,0.31,4,Document,msg_005,mute,promotion,Marketing update from sender u_048 in group group_005 routed to summary mute.
-img_006.jpg,Visual document image attachment.,0.88,0.27,4,Document,msg_006,notify,payment,Financial transaction or payment alert from sender u_043 in group group_002.
-img_007.jpg,Visual document image attachment.,0.88,0.31,4,Document,msg_007,mute,promotion,Marketing update from sender u_043 in group group_010 routed to summary mute.
-img_008.jpg,Visual document image attachment.,0.88,0.29,4,Document,msg_008,digest,business_update,Operational notification from business business_091 routed to digest.
-img_010.jpg,Visual document image attachment.,0.88,0.26,4,Document,msg_010,digest,business_update,Operational notification from business business_096 routed to digest.
-img_011.jpg,Visual document image attachment.,0.88,0.26,4,Document,msg_011,mute,greeting,Social greeting from sender u_051 in group group_001 routed to mute.
-img_012.jpg,Visual document image attachment.,0.88,0.27,4,Document,msg_012,mute,promotion,Marketing update from sender u_051 in group group_016 routed to summary mute.
-img_013.jpg,Visual document image attachment.,0.88,0.37,4,Document,msg_013,notify,payment,Financial transaction or payment alert from sender u_048 in group group_012.
-img_014.jpg,Visual document image attachment.,0.88,0.24,4,Document,msg_014,mute,promotion,Marketing update from business business_094 routed to summary mute.
-img_016.jpg,Visual document image attachment.,0.88,0.33,4,Document,msg_016,mute,scam,Phishing risk or security threat detected from sender u_050 in group group_005.
-img_020.jpg,Visual document image attachment.,0.88,0.26,4,Document,msg_020,notify,urgent,Time-sensitive alert from sender u_049 in group group_005 requiring immediate user attention.
-img_022.jpg,Visual document image attachment.,0.88,0.29,4,Document,msg_022,notify,payment,Financial transaction or payment alert from sender u_044 in group group_011.
-img_023.jpg,Visual document image attachment.,0.88,0.33,4,Document,msg_023,notify,payment,Financial transaction or payment alert from business business_002.
-img_024.jpg,Visual document image attachment.,0.88,0.29,4,Document,msg_024,mute,promotion,Marketing update from business business_003 routed to summary mute.
-img_025.jpg,Visual document image attachment.,0.88,0.32,4,Document,msg_025,notify,business_update,Operational notification from business business_001 routed to notify.
-img_026.jpg,Visual document image attachment.,0.88,0.26,4,Document,msg_026,notify,business_update,Operational notification from business business_036 routed to notify.
+img_001.jpg,Visual document image attachment.,0.88,0.55,4,Document,msg_001,notify,urgent,Time-sensitive alert from sender u_043 in group group_002 requiring immediate user attention.
+img_002.jpg,Visual document image attachment.,0.88,0.59,4,Document,msg_002,digest,event,Event schedule update from sender u_046 in group group_004 routed to digest.
+img_003.jpg,Visual document image attachment.,0.88,0.44,4,Document,msg_003,notify,business_update,Operational notification from business business_001 routed to notify.
+img_004.jpg,Visual document image attachment.,0.88,0.7,4,Document,msg_004,notify,event,Event schedule update from business business_004 routed to notify.
+img_005.jpg,Visual document image attachment.,0.88,0.37,4,Document,msg_005,mute,promotion,Marketing update from sender u_048 in group group_005 routed to summary mute.
+img_006.jpg,Visual document image attachment.,0.88,0.35,4,Document,msg_006,notify,payment,Financial transaction or payment alert from sender u_043 in group group_002.
+img_007.jpg,Visual document image attachment.,0.88,0.36,4,Document,msg_007,mute,promotion,Marketing update from sender u_043 in group group_010 routed to summary mute.
+img_008.jpg,Visual document image attachment.,0.88,0.52,4,Document,msg_008,digest,business_update,Operational notification from business business_091 routed to digest.
+img_010.jpg,Visual document image attachment.,0.88,0.38,4,Document,msg_010,digest,business_update,Operational notification from business business_096 routed to digest.
+img_011.jpg,Visual document image attachment.,0.88,0.31,4,Document,msg_011,mute,greeting,Social greeting from sender u_051 in group group_001 routed to mute.
+img_012.jpg,Visual document image attachment.,0.88,0.37,4,Document,msg_012,mute,promotion,Marketing update from sender u_051 in group group_016 routed to summary mute.
+img_013.jpg,Visual document image attachment.,0.88,0.32,4,Document,msg_013,notify,payment,Financial transaction or payment alert from sender u_048 in group group_012.
+img_014.jpg,Visual document image attachment.,0.88,0.27,4,Document,msg_014,mute,promotion,Marketing update from business business_094 routed to summary mute.
+img_016.jpg,Visual document image attachment.,0.88,0.32,4,Document,msg_016,mute,scam,Phishing risk or security threat detected from sender u_050 in group group_005.
+img_020.jpg,Visual document image attachment.,0.88,0.24,4,Document,msg_020,notify,urgent,Time-sensitive alert from sender u_049 in group group_005 requiring immediate user attention.
+img_022.jpg,Visual document image attachment.,0.88,0.21,4,Document,msg_022,notify,payment,Financial transaction or payment alert from sender u_044 in group group_011.
+img_023.jpg,Visual document image attachment.,0.88,0.24,4,Document,msg_023,notify,payment,Financial transaction or payment alert from business business_002.
+img_024.jpg,Visual document image attachment.,0.88,0.25,4,Document,msg_024,mute,promotion,Marketing update from business business_003 routed to summary mute.
+img_025.jpg,Visual document image attachment.,0.88,0.28,4,Document,msg_025,notify,business_update,Operational notification from business business_001 routed to notify.
+img_026.jpg,Visual document image attachment.,0.88,0.27,4,Document,msg_026,notify,business_update,Operational notification from business business_036 routed to notify.
