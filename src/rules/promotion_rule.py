@@ -120,17 +120,29 @@ class PromotionRule(BaseRule):
         if vector.forwarded_count > 2 or getattr(vector, "duplicate_probability", 0.0) > 0.5:
             neg_penalty += 0.25
 
+        # Cold unsolicited marketing push penalty for unverified senders without order history
+        is_unsolicited_cold_push = (
+            not vector.verified
+            and not vector.trusted_business
+            and vector.orders == 0
+            and vector.reply_history == 0
+        ) and any(k in lower_txt for k in ["try50", "50% off", "shopping offer", "view current balance", "click here", "expire soon"])
+        if is_unsolicited_cold_push:
+            neg_penalty += 0.20
+
         # Multiple Spam Signals Penalty: Require multiple simultaneous spam signals to suppress to mute
         spam_signal_count = (
             (1 if vector.dismiss_rate > 0.4 else 0)
             + (1 if vector.report_history > 0 or getattr(vector, "report_rate", 0.0) > 0.0 else 0)
             + (1 if getattr(vector, "risk_score", 0.0) > 0.2 else 0)
             + (1 if vector.forwarded_count > 2 or getattr(vector, "duplicate_probability", 0.0) > 0.5 else 0)
+            + (1 if is_unsolicited_cold_push else 0)
         )
         if spam_signal_count >= 2:
-            neg_penalty += 0.25
+            neg_penalty += 0.20
 
         utility = base_score + pos_signal - neg_penalty
         return max(0.0, min(1.0, utility))
+
 
 
