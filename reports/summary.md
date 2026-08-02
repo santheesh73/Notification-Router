@@ -17,9 +17,9 @@ The AI-powered WhatsApp Message Notification Router is a modular, production-qua
 
 ## 3. Performance & Benchmark Statistics
 - **Total Messages Processed**: 30
-- **Throughput**: 24.3 msg/s
-- **Average Latency**: 41.16 ms/msg
-- **Peak Memory Usage**: 1.5732 MB
+- **Throughput**: 30.4 msg/s
+- **Average Latency**: 32.9 ms/msg
+- **Peak Memory Usage**: 1.572 MB
 - **Rule Coverage**: 100.0%
 - **LLM Coverage**: 0.0%
 - **Average Calibrated Confidence**: 0.7413

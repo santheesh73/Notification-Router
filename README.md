@@ -14,7 +14,7 @@ Production-grade, modular, scalable AI-powered WhatsApp Message Notification Rou
                                    (FeatureVector)
                                          │
                                          ▼
-                             Phase 4: Rule Engine (15 Rules)
+                             Phase 4: Rule Engine (16 Rules)
                                          │
                         ┌────────────────┴────────────────┐
                  Resolved (80%)                    Unresolved (20%)
@@ -71,7 +71,7 @@ notification-router/
 │   ├── models/              # Context Profile Data Models
 │   ├── builders/            # User/Group/Business Profile Builders
 │   ├── features/            # Feature Pipeline & FeatureVector Extraction
-│   ├── rules/               # Deterministic Rule Engine (15 Rules)
+│   ├── rules/               # Deterministic Rule Engine (16 Rules)
 │   ├── retrieval/           # Historical Evidence Retrieval Engine
 │   ├── media/               # Multimodal Image & Voice Understanding Layer
 │   ├── llm/                 # AI Decision Orchestrator & LLM Providers
@@ -140,8 +140,8 @@ All metrics below are verified directly via `verify_output.py` and `pytest tests
 | **Per-Category Confidence Variance** | **0 flat categories** (100% of 9 message types exhibit continuous internal variance) | ✅ PASSED |
 | **Action Confidence Hierarchy** | `digest` mean conf (**0.641**) < `scam`/`spam` mean conf (**0.962**) | ✅ PASSED |
 | **Reason Grounding & Uniqueness** | **83 / 110 unique reasons with message_id stripped (75.5% uniqueness)** | ✅ PASSED |
-| **Pytest Unit Test Suite** | **104 / 104 PASSED (100% pass rate in 20.31s)** | ✅ PASSED |
-| **Submissible Zip Package (`code.zip`)** | **501.1 KB** (Excludes `dataset/`, `.venv/`, temporary files) | ✅ PASSED |
+| **Pytest Unit Test Suite** | **110 / 110 PASSED (100% pass rate in 20.17s)** | ✅ PASSED |
+| **Submissible Zip Package (`code.zip`)** | **550.4 KB** (Excludes `dataset/`, `.venv/`, temporary files) | ✅ PASSED |
 
 ---
 

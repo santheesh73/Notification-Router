@@ -1,9 +1,9 @@
 # Leaderboard & Performance Evaluation Report
 
 ## 1. System Performance Summary
-- **Throughput**: 24.3 messages / second
-- **Average Latency**: 41.16 ms / message
-- **Peak Memory Footprint**: 1.5732 MB
+- **Throughput**: 30.4 messages / second
+- **Average Latency**: 32.9 ms / message
+- **Peak Memory Footprint**: 1.572 MB
 - **Average Calibrated Confidence**: 0.7413
 
 ## 2. Leaderboard Competitive Strengths
