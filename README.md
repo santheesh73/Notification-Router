@@ -152,3 +152,21 @@ This system was independently audited and verified using `verify_output.py` to e
 1. **Observed Evidence Clustering**: A single evidence triplet (`message_0029;message_0129;message_0215`) appears across 7 messages (`msg_006`, `msg_037`, `msg_021`, `msg_067`, `msg_080`, `msg_062`, `msg_043`). Verification confirmed this is 100% domain-correct: all 7 messages were sent by the exact same sender (`u_043`) posting society admin announcements in `group_002`.
 2. **Media Content Inspection Scope**: Out of 110 messages in the evaluation dataset, exactly 23 messages contain media attachments (15 images: `msg_005`, `msg_060`, `msg_030`, `msg_065`, `msg_029`, `msg_027`, `msg_028`, `msg_064`, `msg_031`, `msg_066`, `msg_049`, `msg_053`, `msg_074`, `msg_062`, `msg_077`; 8 voice notes: `msg_086`, `msg_088`, `msg_083`, `msg_085`, `msg_087`, `msg_082`, `msg_081`, `msg_084`). Binary file payloads for these media IDs do not exist on local disk; therefore, content (OCR/Whisper) is not directly inspected. Routing for these 23 rows relies strictly on sender, group, business, and interaction metadata signals.
 3. **Contextual Negation Handling**: Simple keyword-matching rules can misinterpret negated urgency phrases like *"nothing urgent"* as high-priority emergency alerts. We implemented proximity negation checks in `src/features/text_features.py`, successfully eliminating false-positive emergency alerts and routing negated personal/event messages to `digest`/`personal`.
+
+---
+
+<div align="center">
+
+<a href="https://github.com/santheesh73">
+  <img src="https://img.shields.io/badge/Author-Santheesh%20S-181717?style=for-the-badge&logo=github&logoColor=white" alt="Author" />
+</a>
+<a href="https://github.com/santheesh73?tab=repositories">
+  <img src="https://img.shields.io/badge/Portfolio-Projects-DC2626?style=for-the-badge&logo=git&logoColor=white" alt="Projects" />
+</a>
+
+<br>
+
+<sub>Crafted with care by <a href="https://github.com/santheesh73"><b>Santheesh S</b></a></sub>
+
+</div>
+
